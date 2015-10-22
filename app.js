@@ -1,5 +1,8 @@
 var express = require('express');
+var stylus = require('stylus');
+var nib = require('nib');
 var path = require('path');
+//var stormpath = require('express-stormpath');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -14,15 +17,38 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+function compile(str, path) {
+	  return stylus(str)
+	    .set('filename', path)
+	    .use(nib())
+	}
+
+//Stormpath middleware here
+
+//var stormpathMiddleware = stormpath.init(app, {
+/*	  apiKeyFile: '/Users/robert/.stormpath/apiKey.properties',
+	  application: 'https://api.stormpath.com/v1/applications/xxx',
+	  secretKey: 'some_long_random_string',
+	  expandCustomData: true,
+	  enableForgotPassword: true
+	});*/
+
+//app.use(stormpathMiddleware);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
+app.use(stylus.middleware(
+		  { src: __dirname + '/public'
+		  , compile: compile
+		  }
+		));
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));

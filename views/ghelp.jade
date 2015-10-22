@@ -1,5 +1,24 @@
-extends layout
+html
+  head
+    title=title
+    link(href='/stylesheets/my.css', rel='stylesheet')
+    
+  body
+    div.container
+      div.jumbotron
+        h1 G-HELP
 
-block content
-  h1= title
-  p Welcome to #{title}
+        if user
+          p Welcome, #{user.fullName}
+          p
+            a.small(href="profile") Edit my profile
+          a.btn.btn-primary(href="/logout") Logout
+        else
+          p Welcome to G-HELP, your MUN buddy!
+          p
+            a.btn.btn-primary(href="/login") Student Login      
+            &nbsp 
+            &nbsp
+            a.btn.btn-primary(href="/login") Admin Login
+          p
+            

@@ -1,0 +1,98 @@
+html
+  head
+    title=title
+    link(
+      href='/stylesheets/my.css',
+      rel='stylesheet'
+    )
+  body
+    div.container
+
+      div.page-header
+        h1 Mentor Registration
+
+      if errors
+        each error in errors
+          div.alert.alert-danger
+            span #{error.error}
+      if saved
+        div.alert.alert-success
+          span Registration Successfull! 
+      form.login-form.form-horizontal(method='post', role='form')
+        input(name='_csrf', type='hidden', value=csrfToken)
+
+        div.form-group
+          label.col-sm-4 First Name
+          div.col-sm-8
+            input.form-control(
+              placeholder='Your first name',
+              required=true,
+              name='givenName',
+              type='text',
+              value=givenName,
+              style='width: 300px',
+              )
+        
+        div.form-group
+          label.col-sm-4 Last Name
+          div.col-sm-8
+            input.form-control(placeholder='Your last name',
+              required=true,
+              name='surname',
+              type='text',
+              style='width: 300px',
+              value=surname)
+        div.form-group
+          label.col-sm-4 Major
+          div.col-sm-8
+            input.form-control(placeholder='e.g. Computer Science',
+              required=true,
+              name='major',
+              type='text',
+              style='width: 300px',
+              value=major)
+           
+        div.form-group
+          label.col-sm-4 Email
+          div.col-sm-8
+            input.form-control(placeholder='example@example.com',
+              required=true,
+              name='email',
+              type='email',
+              style='width: 300px',
+              value=email)      
+        div.form-group
+          label.col-sm-4 Cellphone
+          div.col-sm-8
+            input.form-control(placeholder='Cellphone Number',
+              required=true,
+              name='cellphone',
+              type='number',
+              style='width: 300px',
+              value=cellphone)
+        
+              
+         .form-group
+           label.col-sm-4 Sex
+           .radio
+             label
+               input#optionsRadios1(type="radio", name="optionsRadios", value="option1", checked="")
+               | Male
+          .form-group     
+            label.col-sm-4  &nbsp
+            .radio
+              label
+               input#optionsRadios2(type="radio", name="optionsRadios", value="option2")
+               | Female
+        
+            
+         div.form-group
+          label.col-sm-4 Preference
+          div.col-sm-8
+           textarea.form-control(rows="4", placeholder="Enter preferences that you may have!", style='width:300px')
+            
+        div.form-group
+          div.col-sm-offset-4.col-sm-8
+            button.login.btn.btn-primary(type='submit') Submit
+        div.pull-right
+          a(href="/ghelp") Return to home page
