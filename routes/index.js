@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/ghelp', function(req, res, next) {
+router.get('/ghelp', function(req, res) {
   res.render('ghelp', { title: 'G-HELP' });
 });
 router.get('/registermentor', function(req, res, next) {
@@ -17,5 +17,9 @@ router.get('/assignmentor', function(req, res, next) {
 router.get('/test', function(req, res, next) {
 	  res.render('test', { title: 'Test' });
 	});
+router.get('/hostfamily', function(req, res, next) {
+	  res.render('hostfamily', { title: 'Host a student' });
+	});
+
 
 module.exports = router;
