@@ -5097,6 +5097,7 @@ a.badge:hover {
     padding-bottom: 30px;
     margin-bottom: 30px;
     color: inherit;
+	//background-image: url("mun.jpg");
     background-color: #eee
 }
 .jumbotron .h1,
