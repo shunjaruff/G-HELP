@@ -10,6 +10,7 @@ html
 
       div.page-header
         h1 Assign Mentor
+         
 
       if errors
         each error in errors
@@ -25,17 +26,16 @@ html
           label.col-sm-4 New Student
           div.col-sm-8
             select(single='', name='mentor', size='4',required=true,style='width: 200px')
-             option(value='1') Oluwatosin Adelegan
-             option(value='2') Minhaj Shunjaruff
-             option(value='3') Wilson Ozah
-             option(value='4') Rock Stones
-             option(value='5') Bright Duke
-             option(value='6') Shankar Rahul
-             option(value='7') Zack Marc
-             option(value='8') Philip Courtney
-             option(value='9') Mary Courtney
+              
+             option
+            
+              li
+               each user, i in userlist
+                 li
+                   a= user.username
               div.col-sm-offset-0
             p please select a student from above list. 
+
             p 'Preference(s) given by new student.'
              textarea.form-control(rows="4", style='width:300px', readonly='')
              

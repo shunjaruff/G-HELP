@@ -45,7 +45,7 @@ html
       if saved
         div.alert.alert-success
           span Registration Successfull! 
-      form.login-form.form-horizontal(method='post', role='form')
+      form.login-form.form-horizontal(method='post', role='form', name='registermentor', action='/registermentor')
         input(name='_csrf', type='hidden', value=csrfToken)
 
         div.form-group
@@ -54,7 +54,7 @@ html
             input.form-control(
               placeholder='Your first name',
               required=true,
-              name='givenName',
+              name='givenname',
               type='text',
               value=givenName,
               style='width: 300px',
@@ -104,21 +104,21 @@ html
           div.col-sm-1
            .radio
              label
-               input#optionsRadios1(type="radio", name="optionsRadios", value="option1", checked="")
+               input#optionsRadios1(type="radio", name="optionsRadios", value="Male", checked="")
                | Male
         div.form-group     
           label.col-sm-4
           div.col-sm-1
            .radio
              label
-               input#optionsRadios2(type="radio", name="optionsRadios", value="option2")
+               input#optionsRadios2(type="radio", name="optionsRadios", value="Female")
                | Female
         
             
          div.form-group
           label.col-sm-4 Preference
           div.col-sm-8
-           textarea.form-control(rows="4", placeholder="Enter preferences that you may have!", style='width:300px')
+           textarea.form-control(rows="4", placeholder="Enter preferences that you may have!", style='width:300px', name='preference')
             
         div.form-group
           div.col-sm-offset-4.col-sm-8
