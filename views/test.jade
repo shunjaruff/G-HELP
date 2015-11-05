@@ -1,65 +1,106 @@
-html
+doctype strict
+//
+  Design by TEMPLATED
+  http://templated.co
+  Released for free under the Creative Commons Attribution License
+  Name       : BarbedFlower
+  Description: A two-column, fixed-width design with dark color scheme.
+  Version    : 1.0
+  Released   : 20140322
+html(xmlns='http://www.w3.org/1999/xhtml')
   head
-    title=title
-    link(
-      href='/stylesheets/my.css',
-      rel='stylesheet'
-    )
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    title
+    meta(name='keywords', content='')
+    meta(name='description', content='')
+    link(href='http://fonts.googleapis.com/css?family=Varela', rel='stylesheet')
+    link(href='/stylesheets/my.css',rel='stylesheet')
+    link(href='/stylesheets/firstpage.css', rel='stylesheet', type='text/css', media='all')
+    link(href='/stylesheets/firstpagefonts.css', rel='stylesheet', type='text/css', media='all')
+    //if IE 6
+      link(href='default_ie6.css', rel='stylesheet', type='text/css')
   body
-    div.container
+    #wrapper
+      #header-wrapper
+        #header.container
+          #logo
+            h1
+              img(src='images/logo.png', alt='', width='70', height='70')
+          #menu
+            ul
+              li.active
+                a(href='#', accesskey='1', title='') Homepage
+              li
+                a(href='#', accesskey='2', title='') Our Clients
+              li
+                a(href='#', accesskey='3', title='') About Us
+              li
+                a(href='#', accesskey='4', title='') Careers
+              li
+                a(href='#', accesskey='5', title='') Contact Us
+      #banner
+        .container
+          .title
+            h2 Welcome to G-HELP system
+            span.byline Your MUN buddy!
+          p
+            |G-HELP is an online support system for the department of Computer Science aimed at enabling new graduate students get vital information and services ranging from academics to social events on pre-arrival and while in St. Johns. G-HELP is focused on simplicity and it has user-friendly features which users (e.g., new grad students, mentor, host family) will find helpful.
 
-      div.page-header
-        h1 Assign Mentor
-
-      if errors
-        each error in errors
-          div.alert.alert-danger
-            span #{error.error}
-      if saved
-        div.alert.alert-success
-          span Registration Successfull! 
-      form.login-form.form-horizontal(method='post', role='form')
-        input(name='_csrf', type='hidden', value=csrfToken)
-
-        div.form-group
-          label.col-sm-4 New Student
-          div.col-sm-8
-            select(single='', name='mentor', size='4',required=true,style='width: 200px')
-             option(value='1') New Student1
-             option(value='2') New Student2
-             option(value='3') New Student3
-             option(value='4') New Student4
-             option(value='5') New Student5
-             option(value='6') New Student6
-             option(value='7') New Student7
-             option(value='8') New Student8
-             option(value='9') New Student9
-              div.col-sm-offset-0
-            p please select a student from above list. 
-            p 'Preference(s) given by new student.'
-             textarea.form-control(rows="4", style='width:300px', readonly='')
-             
-         div.form-group
-          label.col-sm-4 Mentor
-          div.col-sm-8
-            select(single='', name='mentor', size='4',required=true,style='width: 200px')
-             option(value='1') Mentor 1
-             option(value='2') Mentor 2
-             option(value='3') Mentor 3
-             option(value='4') Mentor 4
-             option(value='5') Mentor 5
-             option(value='6') Mentor 6
-             option(value='7') Mentor 7
-             option(value='8') Mentor 8
-             option(value='9') Mentor 9
-              div.col-sm-offset-0
-            p please select a mentor to assign from above list. 
-            p 'Preference(s) given by mentor.'
-             textarea.form-control(rows="4", style='width:300px', readonly='')
-        
-    
-        div.form-group
-          div.col-sm-offset-4.col-sm-8
-            button.login.btn.btn-primary(type='submit') Assign
-        div.pull-right
-          a(href="/ghelp") Return to home page
+          ul.actions
+            li
+              a.button#modaltrigger.flatbtn(href='#loginmodal') Login
+              
+      #page.container
+        .title
+          h2 Host-Family
+          span.byline Interested in hosting a Student?
+        p
+          | Hosting a student could be an amazing experience. 
+        ul.actions
+          li
+            a.button(href='#') Register
+      #featured
+        .container
+          img(src='images/memorialuniversity.jpg', alt='', width='1000', height='333')
+          .title
+            h2 Title
+            span.byline Text here
+          p
+            | This is 
+            strong BarbedFlower
+            | , a free, fully standards-compliant CSS template designed by 
+            a(href='http://templated.co', rel='nofollow') TEMPLATED
+            | . The photos in this template are from 
+            a(href='http://fotogrph.com/')  Fotogrph
+            | . This free template is released under the 
+            a(href='http://templated.co/license') Creative Commons Attribution
+            |  license, so you're pretty much free to do whatever you want with it (even use it commercially) provided you give us credit for it. Have fun :)
+        ul.actions
+          li
+            a.button(href='#') Button
+      #extra.container
+        .title
+          h2 Title
+          span.byline Text here
+        #three-column
+          .boxA
+            .box
+              p
+                | Box1 text
+          .boxB
+            .box
+              p
+                | Box2 text
+          .boxC
+            .box
+              p
+                | Box3 text
+        ul.actions
+          li
+            a.button(href='#') Button
+    #copyright.container
+      p
+        | © Untitled. All rights reserved.
+        |  | CSS template by 
+        a(href='http://templated.co', rel='nofollow') TEMPLATED
+        | .

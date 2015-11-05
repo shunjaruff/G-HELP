@@ -1,0 +1,53 @@
+html
+  body
+   
+    .loginWrapper
+     
+      // Current user form
+      form#login(action='index.html')
+        h2 
+                          font(face='arial', color='AF1641', size='5') LOGIN TO G-HELP
+        .loginPic
+          a(href='#', title='')
+            img(src='/images/student.png', alt='')
+          span Student
+          .loginActions
+            div
+              a.logleft.flip(href='#', title='Change to Admin', style='left: 0px; opacity: 1;')
+            div
+              a.logright(href='#', title='Forgot password?', style='right: 0px; opacity: 1;')
+        input.loginEmail(type='email', name='login', placeholder='Student Email', required='true')
+        input.loginPassword(type='password', name='password', placeholder='Password', required='true')
+        .logControl
+          .memory
+            #uniform-remember1.checker
+              span
+                input#remember1.check(type='checkbox', checked='checked', style='opacity: 0;')
+            label(for='remember1') Remember me
+          input.buttonM.bBlue(type='submit', name='submit', value='Login')
+      // Admin form
+      form#recover(action='index.html')
+        h2 
+                          font(face='arial', color='AF1641', size='5') LOGIN TO G-HELP
+        .loginPic
+          a(href='#', title='')
+            img(src='/images/admin.png', alt='')
+          span Admin  
+          .loginActions
+            div
+              a.logback.flip(href='#', title='Student Login', style='left: 0px; opacity: 1;')
+            div
+              a.logright(href='#', title='Forgot password?', style='right: 0px; opacity: 1;')
+        input.loginUsername(type='email', name='login', placeholder='Admin username', required='true')
+        input.loginPassword(type='password', name='password', placeholder='Password', required='true')
+        .logControl
+          .memory
+            #uniform-remember2.checker
+              span
+                input#remember2.check(type='checkbox', checked='checked', style='opacity: 0;')
+            label(for='remember2') Remember me
+          input.buttonM.bBlue(type='submit', name='submit', value='Login')
+    script.cssdeck(src='/javascripts/animated2.js')
+    script.cssdeck(src='/javascripts/animated.js')
+    link(rel='stylesheet', type='text/css', media='all', href='/stylesheets/animated.css')
+    
