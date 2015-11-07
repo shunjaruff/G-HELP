@@ -18,6 +18,7 @@
     "monk": "*",
     "morgan": "~1.6.1",
     "nib": "*",
+    "node-validator": "^0.1.19",
     "serve-favicon": "~2.3.0",
     "stylus": "*",
     "xtend": "^4.0.0"

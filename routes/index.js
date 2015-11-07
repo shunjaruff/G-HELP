@@ -36,9 +36,7 @@ router.get('/test2', function(req, res, next) {
 router.get('/hostfamily', function(req, res, next) {
 	  res.render('hostfamily', { title: 'Host a student' });
 	});
-router.get('/login', function(req, res, next) {
-	  res.render('login', { title: 'Login' });
-	});
+
 /* POST to Add User Service */
 router.post('/registermentor', function(req, res) {
 

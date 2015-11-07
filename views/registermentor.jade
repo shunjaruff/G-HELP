@@ -53,6 +53,7 @@ html
           div.col-sm-8
             input.form-control(
               placeholder='Your first name',
+              //pattern='[a-zA-Z]*'
               required=true,
               name='givenname',
               type='text',
@@ -88,16 +89,22 @@ html
               type='email',
               style='width: 300px',
               value=email)      
-        div.form-group
-          label.col-sm-4 Cellphone
-          div.col-sm-8
-            input.form-control(placeholder='Cellphone Number',
-              required=true,
-              name='cellphone',
-              type='tel',
-              style='width: 300px',
-              value=cellphone)
+        //div.form-group
+         // label.col-sm-4 Cellphone
+          //div.col-sm-8
+           // input.form-control(placeholder='Cellphone Number',
+             // required=true,
+              //name='cellphone',
+              //type='tel',
+              //style='width: 300px',
+              //value=cellphone)
         
+        div.form-group
+          label.col-sm-4 Cellphone 
+          div.col-sm-8
+            input.form-control(type='tel', name='cellphone',maxlength='10' pattern='[0-9]{10}', required=true, style='width: 300px', value=cellphone, placeholder='Ex-7099999999')
+          
+
               
         div.form-group
           label.col-sm-4 Sex
@@ -118,7 +125,7 @@ html
          div.form-group
           label.col-sm-4 Preference
           div.col-sm-8
-           textarea.form-control(rows="4", placeholder="Enter preferences that you may have!", style='width:300px', name='preference')
+           textarea.form-control(rows="4", placeholder="Enter preferences that you may have!", style='width:300px', name='preference', required=true)
             
         div.form-group
           div.col-sm-offset-4.col-sm-8
