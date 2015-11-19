@@ -9,6 +9,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 // Mongo instance
+var mongoose = require('mongoose');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('localhost:27017/ghelp');
@@ -52,6 +55,32 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
+
+//express session and passport
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// passport configuration for authentication
+var Account = require('./models/account');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
+//for admin
+/*var AdminAccount = require('./models/adminaccount');
+passport.use(new LocalStrategy(AdminAccount.authenticate()));
+passport.serializeUser(AdminAccount.serializeUser());
+passport.deserializeUser(AdminAccount.deserializeUser()); */
+
+// mongoose instace
+mongoose.connect('mongodb://localhost/passport_local_mongoose_express4');
+
+
 
 // db accessible to our router
 app.use(function(req,res,next){

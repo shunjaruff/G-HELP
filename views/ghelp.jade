@@ -46,26 +46,38 @@ html(xmlns='http://www.w3.org/1999/xhtml')
 
           ul.actions
             li
+             if (!user)
+              p Please login below
               a.button#modaltrigger.flatbtn(href='#loginmodal') Login
+             if (user)
+              //meta(http-equiv='refresh', content='0; url=registermentor')
+              p You are currently logged in as #{user.username}
+              a.button#modaltrigger.flatbtn(href='/logout') Logout
       #loginmodal(style='display:none;')
         
         html
           body
+
             .loginWrapper          
               // Current user form
-              form#login(action='')
+              
+              form#login(role='form', action='',method="post")
+              
+
+
                h2
                 font(face='arial', color='AF1641', size='5') LOGIN TO G-HELP
                .loginPic
                  a(href='#', title='')
                    img(src='/images/student.png', alt='')
                  span Student
-                 .loginActions   
+                 .loginActions  
+                  
                    div
                      a.logleft.flip(href='#', title='Change to Admin', style='left: 0px; opacity: 1;')
                    div
                      a.logright(href='/ghelp', title='Close', style='right: 0px; opacity: 1;')
-               input.loginEmail(type='email', name='login', placeholder='Student Email', required='true')
+               input.loginEmail(type='email', name='username', placeholder='Student Email', required='true')
                input.loginPassword(type='password', name='password', placeholder='Password', required='true')
                .logControl
                  .memory
@@ -74,9 +86,10 @@ html(xmlns='http://www.w3.org/1999/xhtml')
                        input#remember1.check(type='checkbox', checked='checked', style='opacity: 0;')
                    label(for='remember1') Remember me
                  input.buttonM.bBlue(type='submit', name='submit', value='Login')
+
                  
                  // Admin form
-              form#recover(action='')
+              form#recover(role='form', action="/ghelp",method="post")
                 h2
                   font(face='arial', color='AF1641', size='5') LOGIN TO G-HELP
                 .loginPic
@@ -88,7 +101,7 @@ html(xmlns='http://www.w3.org/1999/xhtml')
                       a.logback.flip(href='#', title='Student Login', style='left: 0px; opacity: 1;')
                     div
                       a.logright(href='/ghelp', title='Close', style='right: 0px; opacity: 1;')
-                input.loginUsername(type='email', name='login', placeholder='Admin username', required='true')
+                input.loginUsername(type='email', name='username', value='Admin@mun.ca')
                 input.loginPassword(type='password', name='password', placeholder='Password', required='true')
                 .logControl
                   .memory

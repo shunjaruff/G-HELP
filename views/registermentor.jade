@@ -19,18 +19,27 @@ html
       #header-wrapper
         #header.container 
           //h2 &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp MENTOR REGISTRATION
+           
           
         
           
           #logo
             h1
               img(src='images/logo2.png', alt='', width='70', height='70')
+
               
              
           #menu
             ul
-              li.active
+              li
                 a(href='/ghelp', accesskey='1', title='') Homepage
+
+               
+              li  
+               if (user)
+                a(href='/logout') Logout
+             
+
              
    #banner
     .title

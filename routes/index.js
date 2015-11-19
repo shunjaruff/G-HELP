@@ -1,12 +1,49 @@
 var express = require('express');
+var passport = require('passport');
+var Account = require('../models/account');
 var router = express.Router();
 
 /* GET home page. */
 router.get('/ghelp', function(req, res, next) {
-  res.render('ghelp', { title: 'G-HELP' });
+  res.render('ghelp', { user : req.user });
 });
-router.get('/registermentor', function(req, res, next) {
-	  res.render('registermentor', { title: 'Register Mentor' });
+
+
+router.post('/ghelp', passport.authenticate('local'), function(req, res, next) {
+    req.session.save(function (err) {
+        if (err) {
+            return next(err);
+        }
+        res.redirect('/test2');
+
+    });
+});
+
+router.get('/logout', function(req, res, next) {
+    req.logout();
+    req.session.save(function (err) {
+        if (err) {
+            return next(err);
+        }
+        res.redirect('/ghelp');
+    });
+});
+
+
+router.get('/ping', function(req, res){
+    res.status(200).send("BullsEye!");
+});
+
+function loggedIn(req, res, next) {
+    if (req.user) {
+        next();
+    } else {
+        res.redirect('/ghelp');
+    }
+}
+
+router.get('/registermentor', loggedIn, function(req, res, next) {
+	  res.render('registermentor', { user : req.user });
 	});
 router.get('/addevent', function(req, res, next) {
 	  res.render('addevent', { title: 'Add Event' });
@@ -30,12 +67,15 @@ router.get('/test', function(req, res) {
     });
 });
 
-router.get('/test2', function(req, res, next) {
-	  res.render('test2', { title: 'Test2' });
+router.get('/test2', loggedIn, function(req, res, next) {
+	  res.render('test2', { user : req.user });
 	});
 router.get('/hostfamily', function(req, res, next) {
 	  res.render('hostfamily', { title: 'Host a student' });
 	});
+
+
+
 
 /* POST to Add User Service */
 router.post('/registermentor', function(req, res) {
@@ -76,6 +116,27 @@ router.post('/registermentor', function(req, res) {
             // And forward to success page
             res.send("Registeration successfull!");
         }
+    });
+});
+
+router.get('/register', function(req, res) {
+    res.render('register', { });
+});
+
+router.post('/register', function(req, res, next) {
+    Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+        if (err) {
+          return res.render("register", {info: "Sorry. That username already exists. Try again."});
+        }
+
+        passport.authenticate('local')(req, res, function () {
+            req.session.save(function (err) {
+                if (err) {
+                    return next(err);
+                }
+                res.send('success');
+            });
+        });
     });
 });
 
