@@ -42,8 +42,8 @@ function loggedIn(req, res, next) {
     }
 }
 
-router.get('/registermentor', loggedIn, function(req, res, next) {
-	  res.render('registermentor', { user : req.user });
+router.get('/regmentor', loggedIn, function(req, res, next) {
+	  res.render('regmentor', { user : req.user });
      });
 router.get('/profile', function(req, res) {
     res.render('profile');
@@ -52,8 +52,8 @@ router.get('/profile', function(req, res) {
 router.get('/ghelp', function(req, res, next) {
   res.render('ghelp', { title: 'G-HELP' });
 });
-router.get('/registermentor', function(req, res, next) {
-	  res.render('registermentor', { title: 'Register Mentor' });
+router.get('/regmentor', function(req, res, next) {
+	  res.render('regmentor', { title: 'Register Mentor' });
 	});
 
 router.get('/regstud', function(req, res, next) {
@@ -93,7 +93,7 @@ router.get('/hostfamily', function(req, res, next) {
 
 
 /* POST to Add User Service */
-router.post('/registermentor', function(req, res) {
+router.post('/regmentor', function(req, res) {
 
     // Set our internal DB variable
     var db = req.db;
