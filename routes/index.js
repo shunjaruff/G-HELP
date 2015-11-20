@@ -42,9 +42,9 @@ function loggedIn(req, res, next) {
     }
 }
 
-router.get('/regmentor', loggedIn, function(req, res, next) {
+/**router.get('/regmentor', loggedIn, function(req, res, next) {
 	  res.render('regmentor', { user : req.user });
-     });
+     });*/
 router.get('/profile', function(req, res) {
     res.render('profile');
 });
