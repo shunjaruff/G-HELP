@@ -83,7 +83,7 @@ router.post('/regmentor', function(req, res) {
         }
         else {
             // And forward to success page
-            res.redirect('/profile.jade');
+            res.send('Registration Successful!');
         }
     });
 });
