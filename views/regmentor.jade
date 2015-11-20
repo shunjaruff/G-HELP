@@ -1,0 +1,125 @@
+html
+  head
+    title=title
+    link(href='/stylesheets/my.css',rel='stylesheet')
+   
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    title
+    meta(name='keywords', content='')
+    meta(name='description', content='')
+    link(href='http://fonts.googleapis.com/css?family=Varela', rel='stylesheet')
+    link(href='/stylesheets/my.css',rel='stylesheet')
+    link(href='/stylesheets/firstpage.css', rel='stylesheet', type='text/css', media='all')
+    link(href='/stylesheets/firstpagefonts.css', rel='stylesheet', type='text/css', media='all')
+    
+    //if IE 6
+      link(href='default_ie6.css', rel='stylesheet', type='text/css')
+  body
+    #wrapper
+      #header-wrapper
+        #header.container 
+          //h2 &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp MENTOR REGISTRATION
+          
+        
+          
+          #logo
+            h1
+              img(src='images/logo2.png', alt='', width='70', height='70')
+              
+             
+          #menu
+            ul
+              li.active
+                a(href='/ghelp', accesskey='1', title='') Homepage
+             
+   #banner
+    .title
+            h2 Mentor Registration
+  
+    div.container
+
+      if errors
+        each error in errors
+          div.alert.alert-danger
+            span #{error.error}
+      if saved
+        div.alert.alert-success
+          span Registration Successfull! 
+      form.login-form.form-horizontal(method='post', role='form')
+        input(name='_csrf', type='hidden', value=csrfToken)
+
+        div.form-group
+          label.col-sm-4 First Name
+          div.col-sm-8
+            input.form-control(
+              placeholder='Your first name',
+              //pattern='[a-zA-Z]*'
+              required=true,
+              name='firstName',
+              type='text',
+              value=firstName,
+              style='width: 300px',
+              )
+        
+        div.form-group
+          label.col-sm-4 Last Name
+          div.col-sm-8
+            input.form-control(placeholder='Your last name',
+              required=true,
+              name='lastName',
+              type='text',
+              style='width: 300px',
+              value=lastName)
+        div.form-group
+          label.col-sm-4 Major
+          div.col-sm-8
+            input.form-control(placeholder='e.g. Computer Science',
+              required=true,
+              name='major',
+              type='text',
+              style='width: 300px',
+              value=major)
+           
+        div.form-group
+          label.col-sm-4 Email
+          div.col-sm-8
+            input.form-control(placeholder='example@example.com',
+              required=true,
+              name='email',
+              type='email',
+              style='width: 300px',
+              value=email)      
+        
+        
+        div.form-group
+          label.col-sm-4 Cellphone 
+          div.col-sm-8
+            input.form-control(type='tel', name='mobile',maxlength='10' pattern='[0-9]{10}', required=true, style='width: 300px', value=cellphone, placeholder='Ex-7099999999')
+          
+
+              
+        div.form-group
+          label.col-sm-4 Sex
+          div.col-sm-1
+           .radio
+             label
+               input#optionsRadios1(type="radio", name="sex", value="Male", checked="")
+               | Male
+        div.form-group     
+          label.col-sm-4
+          div.col-sm-1
+           .radio
+             label
+               input#optionsRadios2(type="radio", name="sex", value="Female")
+               | Female
+        
+            
+         div.form-group
+          label.col-sm-4 Preference
+          div.col-sm-8
+           textarea.form-control(rows="4", placeholder="Enter preferences that you may have!", style='width:300px', name='preference', required=true)
+            
+        div.form-group
+          div.col-sm-offset-4.col-sm-8
+            button.login.btn.btn-primary(type='submit') Submit
+        
