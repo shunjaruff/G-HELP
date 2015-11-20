@@ -25,19 +25,24 @@ html
         div.form-group
           label.col-sm-4 New Student
           div.col-sm-8
-            select(single='', name='mentor', size='4',required=true,style='width: 200px')
-              
+            select#mySelect(single='', name='student',onchange='myFunction()', size='4',required=true,style='width: 200px')
              option
-            
-              li
-               each user, i in userlist
-                 li
-                   a= user.username
+              block content
+               ul
+                 each user, i in userlist
+                  li
+                 
+                   a= user.firstname
               div.col-sm-offset-0
             p please select a student from above list. 
 
             p 'Preference(s) given by new student.'
-             textarea.form-control(rows="4", style='width:300px', readonly='')
+             p#demo.textarea.form-control(rows='4', cols='50' style='width:300px', readonly='')
+              script.
+                function myFunction() {
+                var x = document.getElementById("mySelect").value;
+                document.getElementById("demo").innerHTML = "" + x;
+                }
              
          div.form-group
           label.col-sm-4 Mentor
@@ -55,7 +60,7 @@ html
               div.col-sm-offset-0
             p please select a mentor to assign from above list. 
             p 'Preference(s) given by mentor.'
-             textarea.form-control(rows="4", style='width:300px', readonly='')
+             textarea.form-control(rows="8", style='width:500px', readonly='')
         
     
         div.form-group

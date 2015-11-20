@@ -50,7 +50,7 @@ html(xmlns='http://www.w3.org/1999/xhtml')
               p Please login below
               a.button#modaltrigger.flatbtn(href='#loginmodal') Login
              if (user)
-              //meta(http-equiv='refresh', content='0; url=registermentor')
+              
               p You are currently logged in as #{user.username}
               a.button#modaltrigger.flatbtn(href='/logout') Logout
       #loginmodal(style='display:none;')
@@ -62,7 +62,7 @@ html(xmlns='http://www.w3.org/1999/xhtml')
               // Current user form
               
               form#login(role='form', action='',method="post")
-              
+
 
 
                h2

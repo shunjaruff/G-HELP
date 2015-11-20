@@ -4,7 +4,7 @@ var Account = require('../models/account');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/ghelp', function(req, res, next) {
+router.get('/ghelp', function(req, res, next) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
   res.render('ghelp', { user : req.user });
 });
 
@@ -139,6 +139,30 @@ router.post('/register', function(req, res, next) {
         });
     });
 });
+
+
+router.get('/test', function (req, res) {
+        dbName.open(function (error, client) {
+            var collection = new mongodb.Collection(client, 'usercollection');
+            collection.find().limit(300).toArray(function (err, dataObjArr) {
+                var data = '';
+                var dataArr = [];
+                var i = dataObjArr.length;
+                //check for error
+                if(err){return res.end('error!'+err);}
+                //Data
+                if (dataObjArr) {
+                    while(i--){
+                        dataArr[i] = dataObjArr[i]._id;
+                    }
+                    data = dataArr.join(' ');
+                    res.render('test', { returnedData : data });
+                }else{
+                    res.end();
+                }
+            });
+        });
+    });
 
 
 module.exports = router;
