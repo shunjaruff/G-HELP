@@ -13,7 +13,7 @@ Go to **_localhost:3000/ghelp_** in your browser to test
 
 Other available pages are 
 
-                /registermentor
+                /regmentor
                 /assignmentor
                 /hostfamily
                 /addevent
