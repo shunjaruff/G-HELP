@@ -7,7 +7,7 @@ Open the cmd and nevigate to g-help Project folder, from here do **_npm start_**
 
 Open cmd and cd to bin directory of mongoDB. type **_mongod --dbpath path to your g-help\data_** and hit enter.
 
-Open another cmd and cd to bin directory of mongoDB. type **_mongo_** hit enter and then type **_use g-help_**. your db is now data directory of g-help
+Open another cmd and cd to bin directory of mongoDB. type **_mongo_** hit enter and then type **_use ghelp_**. your db is now data directory of g-help
 
 Go to **_localhost:3000/ghelp_** in your browser to test
 
