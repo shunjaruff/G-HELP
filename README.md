@@ -5,7 +5,7 @@ Have Node.js, MongoDB installed in your system
 
 Open the cmd and nevigate to g-help Project folder, from here do **_npm start_**, this starts your Node.js server and listen at 3000
 
-Open cmd and cd to bin directory of mongoDB. type **_mongod --dbpath path to your g-help\data_** and hit enter.
+Open cmd and cd to bin directory of mongoDB. type **_mongod --dbpath path to your g-help\db_** and hit enter.
 
 Open another cmd and cd to bin directory of mongoDB. type **_mongo_** hit enter and then type **_use ghelp_**. your db is now data directory of g-help
 
