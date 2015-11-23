@@ -10,7 +10,6 @@ html
 
       div.page-header
         h1 Assign Mentor
-         
 
       if errors
         each error in errors
@@ -25,43 +24,46 @@ html
         div.form-group
           label.col-sm-4 New Student
           div.col-sm-8
-            select#mySelect(single='', name='student',onchange='myFunction()', size='4',required=true,style='width: 200px')
-             option
-              block content
-               ul
-                 each user, i in userlist
-                  li
-                 
-                   a= user.firstname
-              div.col-sm-offset-0
-            p please select a student from above list. 
+              p please select a student from below list.
+              
+                select.table#selectStudent(placeholder="select", name="student", onchange='myFunction()', width='300px')
+                    each student, i in stds
 
-            p 'Preference(s) given by new student.'
-             p#demo.textarea.form-control(rows='4', cols='50' style='width:300px', readonly='')
+                        option(value="#{student.preference}") #{student.firstname} | #{student.lastname} | #{student.std_id}
+
+            div.col-sm-offset-4.col-sm-8
+            p <strong>Preference given by new student:</strong>
+             #demo.area( style='width:300px', readonly='')
               script.
-                function myFunction() {
-                var x = document.getElementById("mySelect").value;
-                document.getElementById("demo").innerHTML = "" + x;
-                }
+                  function myFunction(){
+                      var x = document.getElementById("selectStudent").value;
+                      document.getElementById("demo").innerHTML = "" + x;
+
+
+                  }
              
          div.form-group
           label.col-sm-4 Mentor
           div.col-sm-8
-            select(single='', name='mentor', size='4',required=true,style='width: 200px')
-             option(value='1') Ibrahim Alonge
-             option(value='2') Kwangsub Ann
-             option(value='3') Frank Lee
-             option(value='4') Win Chung
-             option(value='5') Chang Lee
-             option(value='6') Peyton Brown
-             option(value='7') Mustapha Ali
-             option(value='8') Sam Ball
-             option(value='9') Marc Bone
-              div.col-sm-offset-0
-            p please select a mentor to assign from above list. 
-            p 'Preference(s) given by mentor.'
-             textarea.form-control(rows="8", style='width:500px', readonly='')
-        
+              p please select a mentor to assign from below list.
+              
+                select.table#selectMentor(placeholder="select", name="mentor", onchange='myFunc()')
+                     each mentor, i in ments
+                        option(value="#{mentor.preference}", label="#{mentor.ment_id}") #{mentor.firstName} | #{mentor.lastName} | #{mentor.ment_id}
+
+            div.col-sm-offset-4.col-sm-8
+            p <strong>Preference given by mentor.</strong>
+             #demoo( style='width:300px', readonly='')
+              script.
+                 function myFunc() {
+                     var x = document.getElementById("selectMentor").value;
+                     document.getElementById("demoo").innerHTML = "" + x;
+                 }
+
+
+
+
+
     
         div.form-group
           div.col-sm-offset-4.col-sm-8

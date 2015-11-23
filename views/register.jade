@@ -1,15 +1,75 @@
-extends layout
+
 
 block content
   .container
     h1 Register Page
-    p.lead Say something worthwhile here.
+    p.lead For making Database.
     br
     form(role='form', action="/register",method="post", style='max-width: 300px;')
       .form-group
-          input.form-control(type='text', name="username", placeholder='Enter Username')
+         input.form-control(type='text', name="username", placeholder='Enter Username')
       .form-group
-        input.form-control(type='password', name="password", placeholder='Password')
+         input.form-control(type='password', name="password", placeholder='Password')
+      .form-group
+         input.form-control(placeholder='Your MUN ID', required='required', name='munNo', type='number', style='width: 300px')
+
+      .form-group
+         input.form-control(placeholder='Your first name', required='required', name='firstname', type='text', style='width: 300px')
+      .form-group
+        
+         input.form-control(placeholder='Your last name', required='required', name='lastname', type='text', style='width: 300px')
+
+
+      .form-group
+        
+         select(name='progtype', required='required')
+                            option(value='Computer Science - Thesis') Computer Science - Thesis
+                            option(value='Computer Science - Course Route') Computer Science - Course Route
+                            
+      .form-group
+        
+
+         select(name='semester', required='required')
+                            option(value='1') 1
+                            option(value='2') 2
+                            option(value='3') 3
+                            option(value='4') 4
+      
+      .form-group
+        label.col-sm-4 Mobile No:
+         input.form-control(placeholder='Mobile Number', required='required', name='mobile', type='number', style='width: 300px')
+      .form-group
+        label.col-sm-4 Sex:
+        .radio
+           label
+             input#optionsRadios1(type='radio', name='sex', value='Male', checked='')
+             | Male
+      .form-group
+        label.col-sm-4  &nbsp
+        .radio
+           label
+             input#optionsRadios2(type='radio', name='sex', value='Female')
+             | Female
+      .form-group
+        label.col-sm-4  Preference:
+         label
+          textarea.form-control(rows='4' cols='50', name='preference', placeholder='Tell us your preference')
+      .form-group
+        label.col-sm-4 Assigned:
+           input.form-control(name='assigned', type='boolean()', value='false')
+      .form-group
+        label.col-sm-4 Image:
+           input.form-control(name='image', type='file')     
+
+      .form-group
+        label.col-sm-4 Assigned Mentor:
+          input.form-control(name='ment_id', type='number', value='', placeholder='leave empty')
+
+
+      .form-group
+        label AssignedHostFamily:
+         input.form-control(name='assignedfamily', type='text', value='', placeholder='leave empty')
+     
       button.btn.btn-default(type='submit') Submit
       &nbsp;
       a(href='/')

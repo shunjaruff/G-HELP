@@ -54,20 +54,36 @@ html
       if saved
         div.alert.alert-success
           span Registration Successfull! 
-      form.login-form.form-horizontal(method='post', role='form')
-        input(name='_csrf', type='hidden', value=csrfToken)
+      form.login-form.form-horizontal(method='post')
+       if(user)
+        
+        input(type="hidden", name="_csrf")
 
+        
+        div.form-group
+          label.col-sm-4 MUN Stu. No.
+          div.col-sm-8
+            input.form-control(
+              placeholder='Your MUN Stu No.',
+              value="#{user.std_id}",
+              required=true,
+              name='munNo',
+              type='number',
+              style='width: 300px',
+              readonly=true
+              )
         div.form-group
           label.col-sm-4 First Name
           div.col-sm-8
             input.form-control(
               placeholder='Your first name',
-              //pattern='[a-zA-Z]*'
+              value="#{user.firstname}",
+              readonly=true,
               required=true,
               name='firstName',
               type='text',
-              value=firstName,
-              style='width: 300px',
+              
+              style='width: 300px'
               )
         
         div.form-group
@@ -75,58 +91,70 @@ html
           div.col-sm-8
             input.form-control(placeholder='Your last name',
               required=true,
+              value="#{user.lastname}",
+              readonly=true,
               name='lastName',
               type='text',
               style='width: 300px',
-              value=lastName)
+              )
         div.form-group
           label.col-sm-4 Major
           div.col-sm-8
             input.form-control(placeholder='e.g. Computer Science',
               required=true,
+              value="#{user.program}",
+              readonly=true,
               name='major',
               type='text',
-              style='width: 300px',
-              value=major)
+              style='width: 300px')
            
         div.form-group
           label.col-sm-4 Email
           div.col-sm-8
             input.form-control(placeholder='example@example.com',
               required=true,
+              value="#{user.username}",
+              readonly=true,
               name='email',
               type='email',
-              style='width: 300px',
-              value=email)      
+              style='width: 300px'
+              )      
         
         
         div.form-group
           label.col-sm-4 Cellphone 
           div.col-sm-8
-            input.form-control(type='tel', name='mobile',maxlength='10' pattern='[0-9]{10}', required=true, style='width: 300px', value=cellphone, placeholder='Ex-7099999999')
+            input.form-control(type='number', 
+            value="#{user.mobile}",
+              readonly=true,
+              name='number',maxlength='10' pattern='[0-9]{10}', required=true, style='width: 300px', placeholder='Ex-7099999999')
           
 
               
         div.form-group
           label.col-sm-4 Sex
           div.col-sm-1
-           .radio
-             label
-               input#optionsRadios1(type="radio", name="sex", value="Male", checked="")
-               | Male
-        div.form-group     
-          label.col-sm-4
-          div.col-sm-1
-           .radio
-             label
-               input#optionsRadios2(type="radio", name="sex", value="Female")
-               | Female
+           input.form-control(placeholder='example@example.com',
+              required=true,
+              value="#{user.sex}",
+              readonly=true,
+              name='sex',
+              type='text',
+              style='width: 300px'
+              ) 
+               
         
             
          div.form-group
           label.col-sm-4 Preference
           div.col-sm-8
            textarea.form-control(rows="4", placeholder="Enter preferences that you may have!", style='width:300px', name='preference', required=true)
+
+         dive.form-group
+          label.col-sm-4
+          div.col-sm-1
+            input.form-control(type="hidden", name="assigned")
+            
             
         div.form-group
           div.col-sm-offset-4.col-sm-8

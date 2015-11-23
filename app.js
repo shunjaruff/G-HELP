@@ -71,14 +71,7 @@ passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
-//for admin
-/*var AdminAccount = require('./models/adminaccount');
-passport.use(new LocalStrategy(AdminAccount.authenticate()));
-passport.serializeUser(AdminAccount.serializeUser());
-passport.deserializeUser(AdminAccount.deserializeUser()); */
-
-// mongoose instace
-mongoose.connect('mongodb://localhost/passport_local_mongoose_express4');
+mongoose.connect('mongodb://localhost/ghelp');
 
 
 

@@ -1,1 +1,65 @@
-student home
+doctype strict
+//
+html(xmlns='http://www.w3.org/1999/xhtml')
+  head
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    title
+    meta(name='keywords', content='')
+    meta(name='description', content='')
+    link(href='http://fonts.googleapis.com/css?family=Varela', rel='stylesheet')
+    
+    script(type='text/javascript', src='/javascripts/jquery-1.9.1.min.js')
+    script(type='text/javascript', src='/javascripts/animated2.js')
+    script(type='text/javascript', src='/javascripts/animated.js')
+    script(type='text/javascript', charset='utf-8', src='/javascripts/jquery.leanModal.min.js')
+    link(href='/stylesheets/firstpage.css', rel='stylesheet', type='text/css', media='all')
+    link(href='/stylesheets/firstpagefonts.css', rel='stylesheet', type='text/css', media='all')
+    
+    //if IE 6
+      link(href='default_ie6.css', rel='stylesheet', type='text/css')
+  body
+    #wrapper
+      #header-wrapper
+        #header.container
+          #logo
+            h1
+              img(src='images/logo2.png', alt='', width='70', height='70')
+              if (user)
+              
+              
+          #menu
+            ul
+              li.active
+                a(href='#', accesskey='1', title='') Homepage
+              li
+                a(href='#', accesskey='2', title='') Events
+              li
+                a(href='#', accesskey='3', title='') Mentor
+              li
+                a(href='http://my.mun.ca', accesskey='4', title='') myMUN
+              li
+                a(href='/logout', accesskey='5', title='') Logout
+      
+
+          ul.actions
+            
+             
+      
+      #extra.container
+        .title
+          h2 Profile
+          
+        #three-column
+          .boxA
+            
+              p <strong>Student Name:</strong> #{user.firstname} #{user.lastname}
+              p <strong>Student ID :</strong>       #{user.std_id}
+              p <strong>Program :</strong> #{user.program}
+              p <strong>Mobile :</strong> #{user.mobile}
+                
+          
+        ul.actions
+          li
+            a.button(href='registermentor') Become A Mentor
+    #copyright.container
+      p You Are Logged In as #{user.firstname} #{user.lastname}
