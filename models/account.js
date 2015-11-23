@@ -20,7 +20,7 @@ var Account = new Schema({
     assigned: {type: Boolean, default: false},
     ment_id: Number,
     assignedfamily: String,
-    image: {bin: Buffer, mime: String}
+    image: {bin: Buffer, type: String}
 
 });
 

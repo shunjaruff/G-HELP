@@ -30,7 +30,7 @@ html(xmlns='http://www.w3.org/1999/xhtml')
           #menu
             ul
               li.active
-                a(href='#', accesskey='1', title='') Homepage
+                a(href='home', accesskey='1', title='') Homepage
               li
                 a(href='#', accesskey='2', title='') Events
               li
@@ -56,10 +56,12 @@ html(xmlns='http://www.w3.org/1999/xhtml')
               p <strong>Student ID :</strong>       #{user.std_id}
               p <strong>Program :</strong> #{user.program}
               p <strong>Mobile :</strong> #{user.mobile}
+
+          .boxC
+            .box
+              img(src='images/#{user.firstname}.jpg', alt='', width='200', height='300') 
+            a.button(href='registermentor') Become A Mentor           
                 
-          
-        ul.actions
-          li
-            a.button(href='registermentor') Become A Mentor
+        
     #copyright.container
       p You Are Logged In as #{user.firstname} #{user.lastname}

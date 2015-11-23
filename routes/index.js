@@ -15,7 +15,7 @@ router.post('/ghelp', passport.authenticate('local'), function(req, res, next) {
         if (err) {
             return next(err);
         }
-        res.redirect('/test2');
+        res.redirect('/home');
 
     });
 });
@@ -43,6 +43,24 @@ function loggedIn(req, res, next) {
     }
 }
 
+function adminLogin(req, res, next) {
+    if (req.user.username=='admin@mun.ca') {
+        next();
+    } else {
+        res.redirect('/home');
+    }
+}
+
+function profilePicture(req, res, next) {
+    if (req.user) {
+        var a=req.user.firstname
+        var b=a+".png"
+        var pic='images/'+b
+
+        next();
+    } 
+}
+
 function checkSemester(req, res, next) {
     if (req.user.semester>2) {
         next();
@@ -50,6 +68,12 @@ function checkSemester(req, res, next) {
         res.send('You are not eligible to be a Mentor');
     }
 }
+
+router.get('/picture', profilePicture, function(req, res, next) {
+
+
+      res.render('picture', { user : req.user });
+     });
 
 router.get('/regmentor', function(req, res, next) {
 
@@ -149,10 +173,11 @@ router.get('/addevent', function(req, res, next) {
 	  res.render('addevent', { title: 'Add Event' });
 	});
 
-router.get('/assignmentor', function(req, res){
+router.get('/assignmentor', loggedIn, adminLogin, function(req, res){
  //   var db = req.db;
  //   var collection = db.get('mentor');
    // model.MenSchema.find().setOptions({sort: 'major'})
+
     model.MenSchema.find({}, {firstName: 1 , lastName: 1 , preference: 1, ment_id: 1})
     .exec(function(err, ments){
             if(err){
