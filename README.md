@@ -17,4 +17,9 @@ Other available pages are
                 /assignmentor
                 /hostfamily
                 /addevent
+                
+                
+---username and password---
+shunjaruff@mun.ca
+12345
 
