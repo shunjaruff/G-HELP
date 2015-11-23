@@ -13,13 +13,13 @@ Go to **_localhost:3000/ghelp_** in your browser to test
 
 Other available pages are 
 
-                /regmentor
+                /registermentor
                 /assignmentor
                 /hostfamily
                 /addevent
                 
                 
 ---username and password---
-shunjaruff@mun.ca
+shunjaruff@mun.ca, ibrahim@mun.ca, tosin@mun.ca, tom@mun.ca, admin@mun.ca
 12345
 
