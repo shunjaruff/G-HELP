@@ -54,7 +54,7 @@ html(xmlns='http://www.w3.org/1999/xhtml')
               p You are currently logged in as #{user.username}
               a.button#modaltrigger.flatbtn(href='/logout') Logout
       #loginmodal(style='display:none;')
-        
+    
         html
           body
 
@@ -82,10 +82,8 @@ html(xmlns='http://www.w3.org/1999/xhtml')
                input.loginPassword(type='password', name='password', placeholder='Password', required='true')
                .logControl
                  .memory
-                   #uniform-remember1.checker
-                     span
-                       input#remember1.check(type='checkbox', checked='checked', style='opacity: 0;')
-                   label(for='remember1') Remember me
+                   
+                  
                  input.buttonM.bBlue(type='submit', name='submit', value='Login')
 
                  
@@ -97,20 +95,20 @@ html(xmlns='http://www.w3.org/1999/xhtml')
                   a(href='#', title='')
                     img(src='/images/admin.png', alt='')
                   span Admin  
+                  
                   .loginActions
                     div
                       a.logback.flip(href='#', title='Student Login', style='left: 0px; opacity: 1;')
                     div
                       a.logright(href='/ghelp', title='Close', style='right: 0px; opacity: 1;')
                 input.loginUsername(type='email', name='username', value='admin@mun.ca')
+
                 input.loginPassword(type='password', name='password', placeholder='Password', required='true')
                 .logControl
                   .memory
-                    #uniform-remember2.checker
-                      span
-                        input#remember2.check(type='checkbox', checked='checked', style='opacity: 0;')
-                    label(for='remember2') Remember me
-                  input.buttonM.bBlue(type='submit', name='submit', value='Login') 
+                    
+
+                  input.buttonM.bBlack(type='submit', name='submit', value='Login')
                  
              link(href='/stylesheets/animated.css', rel='stylesheet') 
             //link(rel='stylesheet', href='/stylesheets/style.css')
@@ -136,21 +134,13 @@ html(xmlns='http://www.w3.org/1999/xhtml')
         .container
           img(src='images/memorialuniversity.jpg', alt='', width='1000', height='333')
           .title
-            h2 Title
-            span.byline Text here
+            h2 Student Registration
+            span.byline
           p
-            | This is 
-            strong BarbedFlower
-            | , a free, fully standards-compliant CSS template designed by 
-            a(href='http://templated.co', rel='nofollow') TEMPLATED
-            | . The photos in this template are from 
-            a(href='http://fotogrph.com/')  Fotogrph
-            | . This free template is released under the 
-            a(href='http://templated.co/license') Creative Commons Attribution
-            |  license, so you're pretty much free to do whatever you want with it (even use it commercially) provided you give us credit for it. Have fun :)
+            | Please Register yourself here
         ul.actions
           li
-            a.button(href='#') Button
+            a.button(href='register') Register
       #extra.container
         .title
           h2 Title

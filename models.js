@@ -17,11 +17,24 @@ var MenSchema = mongoose.model('Mentor', new Schema({
     sex:          {type: String, required: true},
     preference:   {type: String, required: true},
     assigned:     {type: Boolean, default: false},
+    mentee_id:    {type: Array, unique: false}
     
 
 })
 );
 
+var AddEvent = mongoose.model('event', new Schema({
+    eventName:      {type: String, required: true},
+    startDate:    {type: Date, required: true},
+    endDate:     {type: Date, required: true},
+    startTime:        {type: String, required: true, unique: true},
+    endTime:    {type: String, required: true},
+    venue:        {type: String, required: true},
+    eventDetail:          {type: String, required: true}
+    
+
+})
+);
 
 /**
  * Our User model.
@@ -67,4 +80,5 @@ module.exports.Mentor = mongoose.model('Mentor', new Schema({
 module.exports = {
     MenSchema: MenSchema,
     Host: Host,
+    AddEvent: AddEvent,
 }

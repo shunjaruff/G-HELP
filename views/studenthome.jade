@@ -2,6 +2,7 @@ doctype strict
 //
 html(xmlns='http://www.w3.org/1999/xhtml')
   head
+    var model = require('../models.js');
     meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
     title
     meta(name='keywords', content='')
@@ -56,11 +57,15 @@ html(xmlns='http://www.w3.org/1999/xhtml')
               p <strong>Student ID :</strong>       #{user.std_id}
               p <strong>Program :</strong> #{user.program}
               p <strong>Mobile :</strong> #{user.mobile}
-
+              p <strong>Current Semester :</strong> #{user.semester}
+          
           .boxC
             .box
               img(src='images/#{user.firstname}.jpg', alt='', width='200', height='300') 
-            a.button(href='registermentor') Become A Mentor           
+
+            
+            if (user.semester > 2)
+             a.button(href='registermentor') Become A Mentor           
                 
         
     #copyright.container

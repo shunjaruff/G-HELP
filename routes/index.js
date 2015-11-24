@@ -5,20 +5,9 @@ var model = require('../models.js');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/ghelp', function(req, res, next) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-  res.render('ghelp', { user : req.user });
-});
 
 
-router.post('/ghelp', passport.authenticate('local'), function(req, res, next) {
-    req.session.save(function (err) {
-        if (err) {
-            return next(err);
-        }
-        res.redirect('/home');
 
-    });
-});
 
 router.get('/logout', function(req, res, next) {
     req.logout();
@@ -81,7 +70,7 @@ router.get('/regmentor', function(req, res, next) {
 	  res.render('regmentor', { user : req.user });
      });
 
-router.get('/home', function(req, res, next) {
+router.get('/home', loggedIn, function(req, res, next) {
 
   if (req.user.username=='admin@mun.ca') {
       res.render('adminhome', { user : req.user })
@@ -95,7 +84,7 @@ router.get('/home', function(req, res, next) {
 router.post('/regmentor', function(req, res) {
 
     new model.MenSchema({
-        ment_id:        req.body.munNo,
+        ment_id:    req.body.munNo,
         firstName:  req.body.firstName,
         lastName:   req.body.lastName,
         email:      req.body.email,
@@ -103,7 +92,7 @@ router.post('/regmentor', function(req, res) {
         cellPhone:  req.body.number,
         sex:        req.body.sex,
         preference: req.body.preference,
-        assigned: req.body.assigned,
+        assigned:   req.body.assigned,
         
 
 
@@ -137,17 +126,18 @@ router.post('/registermentor', function(req, res) {
         sex:        req.body.sex,
         preference: req.body.preference,
         assigned: req.body.assigned,
+        mentee_id: req.body.mentee_id
         
 
 
     }).save(function(err, docs){
             if (err) {
                 //if failed, return error
-                res.send(err);
+                res.send("You are already a Mentor" );
             }
             else {
                 //Success !!!
-                res.redirect("ghelp");
+                
                 res.end("Thank you for your registration");
             }
         });
@@ -161,17 +151,59 @@ router.get('/profile', function(req, res) {
 });
 
 router.get('/ghelp', function(req, res, next) {
-  res.render('ghelp', { title: 'G-HELP' });
+  res.render('ghelp', { user : req.user });
 });
+
+
+router.post('/ghelp', passport.authenticate('local'), function(req, res, next) {
+    req.session.save(function (err) {
+        if (err) {
+            return next(err);
+        }
+        res.redirect('/home');
+
+    });
+});
+
+
+
 
 
 router.get('/regstud', function(req, res, next) {
     res.render('regstud', { title: 'Register Student' });
 });
 
-router.get('/addevent', function(req, res, next) {
-	  res.render('addevent', { title: 'Add Event' });
+router.get('/addevent', adminLogin, function(req, res, next) {
+	  res.render('addevent', { user : req.user });
 	});
+
+router.post('/addevent', function(req, res) {
+
+    new model.AddEvent({
+    eventName:      req.body.eventName,
+    startDate:    req.body.startDate,
+    endDate:     req.body.endDate,
+    startTime:        req.body.startTime,
+    endTime:    req.body.endTime,
+    venue:        req.body.venue,
+    eventDetail:          req.body.eventDetail
+        
+
+
+    }).save(function(err, docs){
+            if (err) {
+                //if failed, return error
+                res.send("There was some error" );
+            }
+            else {
+                //Success !!!
+                
+                res.end("Event Registered!");
+            }
+        });
+});
+
+
 
 router.get('/assignmentor', loggedIn, adminLogin, function(req, res){
  //   var db = req.db;
