@@ -1,0 +1,20 @@
+
+extends layout
+
+block content
+    h1= title
+    p 
+
+    // Wrapper
+    #wrapper
+
+        // USER LIST
+        h2 
+        each events, i in evnt
+            table
+                
+                   p #{events.eventName} | #{events.startDate} 
+                tbody
+        // /USER LIST
+
+    // /WRAPPER

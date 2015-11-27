@@ -1,0 +1,92 @@
+html
+   head
+      title=title
+      link(
+      href='/stylesheets/my.css',
+      rel='stylesheet'
+      )
+body
+   div.container
+      div.page-header
+         h2 Host Assignment
+      if errors
+         each error in errors
+            div.alert.alert-danger
+               span #{error.error}
+      if saved
+         div.alert.alert-success
+            span Registration Successfull!
+      form
+         div.form-group
+            table
+               thead
+                  tr: th Students
+                  tr
+                     th Student No &nbsp &nbsp &nbsp &nbsp
+                     th First Name &nbsp &nbsp &nbsp &nbsp
+                     th Last Name &nbsp &nbsp &nbsp &nbsp
+                     th Preference
+               tbody
+                  each student, i in stds
+                     tr
+                        td
+                           input(type="text" value="#{student._id}" readonly="true")
+                        td #{student.firstName}
+                        td #{student.lastName}
+                        td #{student.preference}
+         br
+         br
+         br
+         div
+            table
+               thead
+                  tr: th Mentors
+                  tr
+                     tr
+                     th First Name &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                     th Last Name &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                     th Address   &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                     th Preference &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+               tbody
+                  each host, i in hosts
+                     tr(class=(i % 2 == 0) ? 'odd' : 'even')
+                        td #{host.firstName}
+                        td #{host.lastName}
+                        td #{host.address}
+                        td #{host.preference}
+      .container
+      .page-header
+         h3
+            strong Host Family Assignment
+      form(method='post',id='hostassign', role='form' )
+         script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js").
+         script(type='text/javascript').
+            $('#hostassign').on('submit', function (event) {
+               event.preventDefault(); // Stop the form from causing a page refresh.
+               var data = {
+                  student: $('#selectStud option:selected').val(),
+                  hostfamily: $('#selectHost option:selected').val()
+               };
+               $.ajax({
+                  url: '/assignhost',
+                  data: data,
+                  method: 'POST'
+               }).then(function (response) {
+                  window.location.reload(true);
+                  alert("A host has been successfully assigned", response);
+               }).catch(function (err) {
+                  console.error(err);
+               });
+            });
+         .form-group
+         label.col-sm-4 Student:
+         .col-sm-8
+            select.table#selectStud(placeholder="select", name="student" required=true)
+               each student, i in stds
+                  option(value="#{student._id}") #{student.firstName} | #{student.lastName}
+         label.col-sm-4 Host Family:
+         .col-sm-8
+            select.table#selectHost(placeholder="select", name="hostfamily" required=true)
+               each host, i in hosts
+                  option(value="#{host._id}") #{host.firstName} | #{host.lastName}
+         input(type="submit", id='assign', value="Assign to host")

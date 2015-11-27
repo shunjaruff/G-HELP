@@ -65,7 +65,7 @@ html
           div.col-sm-8
             input.form-control(
               placeholder='Your MUN Stu No.',
-              value="#{user.std_id}",
+              value="#{user._id}",
               required=true,
               name='munNo',
               type='number',
@@ -77,7 +77,7 @@ html
           div.col-sm-8
             input.form-control(
               placeholder='Your first name',
-              value="#{user.firstname}",
+              value="#{user.firstName}",
               readonly=true,
               required=true,
               name='firstName',
@@ -91,7 +91,7 @@ html
           div.col-sm-8
             input.form-control(placeholder='Your last name',
               required=true,
-              value="#{user.lastname}",
+              value="#{user.lastName}",
               readonly=true,
               name='lastName',
               type='text',

@@ -14,10 +14,10 @@ block content
          input.form-control(placeholder='Your MUN ID', required='required', name='munNo', type='number', style='width: 300px')
 
       .form-group
-         input.form-control(placeholder='Your first name', required='required', name='firstname', type='text', style='width: 300px')
+         input.form-control(placeholder='Your first name', required='required', name='firstName', type='text', style='width: 300px')
       .form-group
         
-         input.form-control(placeholder='Your last name', required='required', name='lastname', type='text', style='width: 300px')
+         input.form-control(placeholder='Your last name', required='required', name='lastName', type='text', style='width: 300px')
 
 
       .form-group
@@ -50,25 +50,33 @@ block content
            label
              input#optionsRadios2(type='radio', name='sex', value='Female')
              | Female
-      .form-group
+
+        .form-group
+            label.col-sm-4 Do you want a Host Family?
+            .radio
+                label
+                    input#optionsRadios1(type='radio', name='hostRequest', value='Yes', checked='')
+                    | Yes
+            .radio
+                label
+                    input#optionsRadios2(type='radio', name='hostRequest', value='No')
+                    | No
+
+        .form-group
         label.col-sm-4  Preference:
          label
           textarea.form-control(rows='4' cols='50', name='preference', placeholder='Tell us your preference')
       .form-group
-        label.col-sm-4 Assigned:
-           input.form-control(name='assigned', type='boolean()', value='false')
-      .form-group
-        label.col-sm-4 Image:
-           input.form-control(name='image', type='file')     
+
+           input.form-control(name='assigned', type='hidden', value='false')
+           
 
       .form-group
-        label.col-sm-4 Assigned Mentor:
-          input.form-control(name='ment_id', type='number', value='', placeholder='leave empty')
+          input.form-control(name='mentor', type='hidden', value='', placeholder='leave empty')
 
 
       .form-group
-        label AssignedHostFamily:
-         input.form-control(name='assignedfamily', type='text', value='', placeholder='leave empty')
+         input.form-control(name='hostFamily', type='hidden', value='', placeholder='leave empty')
      
       button.btn.btn-default(type='submit') Submit
       &nbsp;

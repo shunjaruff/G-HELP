@@ -27,7 +27,8 @@
     "node-validator": "^0.1.19",
     "serve-favicon": "~2.3.0",
     "stylus": "*",
-    "xtend": "^4.0.0"
+    "xtend": "^4.0.0",
+    "multer": "~0.1.6"
   },
   "author": "Minhaj Shunjaruff",
   "license": "ISC",

@@ -8,7 +8,7 @@ var ObjectId = Schema.ObjectId;
 
 
 var MenSchema = mongoose.model('Mentor', new Schema({
-    ment_id:      {type: Number, required: true},
+    _id:      {type: Number, required: true, ref: 'Student'},
     firstName:    {type: String, required: true},
     lastName:     {type: String, required: true},
     email:        {type: String, required: true, unique: true},

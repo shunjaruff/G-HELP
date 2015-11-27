@@ -3,6 +3,8 @@ var passport = require('passport');
 var Account = require('../models/account');
 var model = require('../models.js');
 var router = express.Router();
+var multer          =       require('multer');
+var upload      =   multer({ dest: './uploads/'});
 
 /* GET home page. */
 
@@ -28,7 +30,7 @@ function loggedIn(req, res, next) {
     if (req.user) {
         next();
     } else {
-        res.send('You need to be logged in to access this page');
+        res.redirect('/ghelp');
     }
 }
 
@@ -42,16 +44,16 @@ function adminLogin(req, res, next) {
 
 function profilePicture(req, res, next) {
     if (req.user) {
-        var a=req.user.firstname
-        var b=a+".png"
-        var pic='images/'+b
+        var a=req.user.firstName;
+        var b=a+".png,.jpg";
+        var pic='images/'+b;
 
         next();
     } 
 }
 
 function checkSemester(req, res, next) {
-    if (req.user.semester>2) {
+    if (req.user.semester>3) {
         next();
     } else {
         res.send('You are not eligible to be a Mentor');
@@ -80,7 +82,134 @@ router.get('/home', loggedIn, function(req, res, next) {
   }
      });
 
+router.get('/profile', function(req, res) {
+    res.render('profile');
+});
 
+router.get('/ghelp', function(req, res, next) {
+    res.render('ghelp', { user : req.user });
+});
+
+
+router.get('/test', function(req, res, next) {
+    res.render('test', { user : req.user });
+});
+
+
+
+router.get('/addevent', adminLogin, function(req, res, next) {
+    res.render('addevent', { user : req.user });
+});
+
+
+
+
+router.get('/hostfamily', function(req, res, next) {
+    res.render('hostfamily', { title: 'Host a student' });
+});
+
+router.post('/hostfamily', function(req, res) {
+    var host = new model.Host({
+        //Get our form values.
+        firstName : req.body.firstName,
+        lastName : req.body.lastName,
+        email : req.body.email,
+        address : req.body.address,
+        mobileNo : req.body.mobileNo,
+        preference : req.body.preference
+    });
+    console.log(host);
+    host.save(function(err, doc){
+        if (err) {
+            //if failed, return error
+            res.send("Mentor registration wasn't successful");
+        }
+        else {
+            //Success !!!
+            res.end("Thank you for your registration");
+        }
+    });
+});
+
+
+router.get('/register', function(req, res) {
+    res.render('register', { });   
+});
+
+
+
+
+
+router.post('/register', function(req, res, next) {
+    Account.register(new Account({ username : req.body.username, _id : req.body.munNo,
+                firstName : req.body.firstName,
+                lastName : req.body.lastName,
+                program : req.body.progtype,
+                semester: req.body.semester,
+                mobile : req.body.mobile,
+                sex : req.body.sex,
+                preference: req.body.preference,
+                image: req.body.image,
+                assigned: req.body.assigned,
+                mentor: req.body.mentor,
+                hostRequest: req.body.hostRequest,
+                hostFamily: req.body.hostFamily }), req.body.password, function(err, account) {
+        if (err) {
+          return res.render("register", {info: "Sorry. That username already exists. Try again."});
+        }
+
+        passport.authenticate('local')(req, res, function () {
+            req.session.save(function (err) {
+                if (err) {
+                    return next(err);
+                }
+                
+                res.redirect('/register/picture');
+            });
+        });
+    });
+});
+
+
+router.get('/viewmentor',loggedIn, function(req, res) {
+        if(req.user) {
+            Account.findOne({_id: req.user._id}).populate('mentor').exec(function (err, data) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log('Your Mentor is', data.mentor.firstName, data.mentor.lastName);
+                    res.render('viewmentor', {title: 'Your Mentor', data: data});
+                }
+            })
+        }
+});
+
+router.get('/assignmentor', loggedIn, adminLogin, function(req, res){
+    //   var db = req.db;
+    //   var collection = db.get('mentor');
+    // model.MenSchema.find().setOptions({sort: 'major'})
+    model.MenSchema.find({}, {firstName: 1 , lastName: 1 , preference: 1, _id: 1})
+        .exec(function(err, ments){
+            if(err){
+                console.log(err);
+            }
+            else {
+                Account.find({$and: [{semester: { $lt: 3 }},{assigned: false}]}, {firstName: 1, lastName: 1, preference: 1, _id: 1})
+                    .exec(function (err, stds) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            res.render('assignmentor', {title: 'Students', stds: stds, ments: ments});
+                        }
+
+                    })
+            }});
+
+});
+
+
+/**
 router.post('/regmentor', function(req, res) {
 
     new model.MenSchema({
@@ -108,6 +237,8 @@ router.post('/regmentor', function(req, res) {
             }
         });
 });
+ */
+
 //duplicating
 router.get('/registermentor', loggedIn, checkSemester, function(req, res, next) {
 
@@ -117,7 +248,7 @@ router.get('/registermentor', loggedIn, checkSemester, function(req, res, next) 
 router.post('/registermentor', function(req, res) {
 
     new model.MenSchema({
-        ment_id:        req.body.munNo,
+        _id:        req.body.munNo,
         firstName:  req.body.firstName,
         lastName:   req.body.lastName,
         email:      req.body.email,
@@ -125,10 +256,7 @@ router.post('/registermentor', function(req, res) {
         cellPhone:  req.body.number,
         sex:        req.body.sex,
         preference: req.body.preference,
-        assigned: req.body.assigned,
-        mentee_id: req.body.mentee_id
-        
-
+   //     assigned: req.body.assigned
 
     }).save(function(err, docs){
             if (err) {
@@ -145,16 +273,6 @@ router.post('/registermentor', function(req, res) {
 
 
 
-
-router.get('/profile', function(req, res) {
-    res.render('profile');
-});
-
-router.get('/ghelp', function(req, res, next) {
-  res.render('ghelp', { user : req.user });
-});
-
-
 router.post('/ghelp', passport.authenticate('local'), function(req, res, next) {
     req.session.save(function (err) {
         if (err) {
@@ -167,15 +285,6 @@ router.post('/ghelp', passport.authenticate('local'), function(req, res, next) {
 
 
 
-
-
-router.get('/regstud', function(req, res, next) {
-    res.render('regstud', { title: 'Register Student' });
-});
-
-router.get('/addevent', adminLogin, function(req, res, next) {
-	  res.render('addevent', { user : req.user });
-	});
 
 router.post('/addevent', function(req, res) {
 
@@ -205,24 +314,49 @@ router.post('/addevent', function(req, res) {
 
 
 
-router.get('/assignmentor', loggedIn, adminLogin, function(req, res){
- //   var db = req.db;
- //   var collection = db.get('mentor');
-   // model.MenSchema.find().setOptions({sort: 'major'})
 
-    model.MenSchema.find({}, {firstName: 1 , lastName: 1 , preference: 1, ment_id: 1})
-    .exec(function(err, ments){
+
+
+
+
+router.post('/assignmentor', function(req, res) {
+    //Get our form values.
+                var mentee = req.body.mentee;
+                var dmentor = req.body.dmentor;
+                if(mentee){
+                    Account.update({"_id":mentee}, {$set:{"mentor": dmentor, "assigned": true}},function(err, doc){
+                        if (doc) {
+                            //if failed, return error
+
+                            res.send("Mentor registration was successful");
+                        }
+                        else {
+                //Success !!!
+                res.end("mentor assignment wasn't successful");
+            }
+        });
+    }
+    else{
+        res.end("Ensure you have selected a student")
+    }
+
+});
+
+
+router.get('/assignhost', function(req, res){
+    model.Host.find({}, {firstName: 1 , lastName: 1 , preference: 1, address: 1, _id: 1})
+        .exec(function(err, hosts){
             if(err){
                 console.log(err);
             }
-        else {
-                Account.find({semester: { $lt: 3 }}, {firstname: 1, lastname: 1, preference: 1, std_id: 1})
+            else {
+                Account.find({$and: [{semester: { $lt: 3}},{hostFamily: ""}]}, {firstName: 1, lastName: 1, preference: 1, _id: 1})
                     .exec(function (err, stds) {
                         if (err) {
                             console.log(err);
                         }
                         else {
-                            res.render('assignmentor', {title: 'Mentor Assignment', stds: stds, ments: ments});
+                            res.render('assignhost', {title: 'Assign Host', stds: stds, hosts: hosts});
                         }
 
                     })
@@ -231,84 +365,30 @@ router.get('/assignmentor', loggedIn, adminLogin, function(req, res){
 });
 
 
-router.get('/test', function(req, res) {
-    var db = req.db;
-    var collection = db.get('accounts');
-    collection.find({},{},function(e,docs){
-        res.render('test', {
-            "userlist" : docs
+router.post('/assignhost', function(req, res) {
+    //Get our form values.
+    var student = req.body.student;
+    var hostfamily = req.body.hostfamily;
+    if(student){
+        Account.update({"_id":student}, {$set:{"hostFamily": hostfamily}},function(err, doc){
+            if (doc) {
+                //if failed, return error
+
+                res.send("Mentor registration was successful");
+            }
+            else {
+                //Success !!!
+                res.end("mentor assignment wasn't successful");
+            }
         });
-    });
-});
+    }
+    else{
+        res.end("Ensure you have selected a student")
+    }
 
-router.get('/test2', loggedIn, function(req, res, next) {
-	  res.render('test2', { user : req.user });
-	});
-router.get('/hostfamily', function(req, res, next) {
-	  res.render('hostfamily', { title: 'Host a student' });
-	});
-
-
-
-
-
-
-
-router.get('/register', function(req, res) {
-    res.render('register', { });
-});
-
-router.post('/register', function(req, res, next) {
-    Account.register(new Account({ username : req.body.username, std_id : req.body.munNo,
-                firstname : req.body.firstname,
-                lastname : req.body.lastname,
-                program : req.body.progtype,
-                semester: req.body.semester,
-                mobile : req.body.mobile,
-                sex : req.body.sex,
-                preference: req.body.preference,
-                image: req.body.image,
-                assigned: req.body.assigned,
-                ment_id: req.body.ment_id,
-                assignedfamily: req.body.assignedfamily }), req.body.password, function(err, account) {
-        if (err) {
-          return res.render("register", {info: "Sorry. That username already exists. Try again."});
-        }
-
-        passport.authenticate('local')(req, res, function () {
-            req.session.save(function (err) {
-                if (err) {
-                    return next(err);
-                }
-                res.send('success');
-            });
-        });
-    });
 });
 
 
-router.get('/test', function (req, res) {
-        dbName.open(function (error, client) {
-            var collection = new mongodb.Collection(client, 'usercollection');
-            collection.find().limit(300).toArray(function (err, dataObjArr) {
-                var data = '';
-                var dataArr = [];
-                var i = dataObjArr.length;
-                //check for error
-                if(err){return res.end('error!'+err);}
-                //Data
-                if (dataObjArr) {
-                    while(i--){
-                        dataArr[i] = dataObjArr[i]._id;
-                    }
-                    data = dataArr.join(' ');
-                    res.render('test', { returnedData : data });
-                }else{
-                    res.end();
-                }
-            });
-        });
-    });
 
 
 module.exports = router;

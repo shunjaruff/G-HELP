@@ -2,7 +2,7 @@ doctype strict
 //
 html(xmlns='http://www.w3.org/1999/xhtml')
   head
-    var model = require('../models.js');
+    
     meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
     title
     meta(name='keywords', content='')
@@ -35,7 +35,7 @@ html(xmlns='http://www.w3.org/1999/xhtml')
               li
                 a(href='#', accesskey='2', title='') Events
               li
-                a(href='#', accesskey='3', title='') Mentor
+                a(href='/viewmentor', accesskey='3', title='') View Mentor
               li
                 a(href='http://my.mun.ca', accesskey='4', title='') myMUN
               li
@@ -52,21 +52,33 @@ html(xmlns='http://www.w3.org/1999/xhtml')
           
         #three-column
           .boxA
-            
-              p <strong>Student Name:</strong> #{user.firstname} #{user.lastname}
-              p <strong>Student ID :</strong>       #{user.std_id}
+           
+            if(user)
+              p <strong>Student Name:</strong> #{user.firstName} #{user.lastName}
+              p <strong>Student ID :</strong>       #{user._id}
               p <strong>Program :</strong> #{user.program}
               p <strong>Mobile :</strong> #{user.mobile}
               p <strong>Current Semester :</strong> #{user.semester}
+            if (user.semester < 3)
+             if(user.mentor==null)
+              p <strong>Mentor :</strong> Not yet assigned!
+             else
+              p <strong>Mentor :</strong> #{user.mentor}
+
+             if(user.hostFamily=="") 
+              p <strong>Host Family :</strong> Not yet assigned!
+             else
+              p <strong>Host Family :</strong> #{user.hostFamily} 
           
           .boxC
             .box
-              img(src='images/#{user.firstname}.jpg', alt='', width='200', height='300') 
+              img(src='images/userpicture/#{user._id}.jpg', alt='', width='200', height='300') 
 
             
             if (user.semester > 2)
+            
              a.button(href='registermentor') Become A Mentor           
                 
         
     #copyright.container
-      p You Are Logged In as #{user.firstname} #{user.lastname}
+      p You Are Logged In as #{user.firstName} #{user.lastName}
