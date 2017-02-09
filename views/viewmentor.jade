@@ -1,0 +1,61 @@
+doctype strict
+//
+html(xmlns='http://www.w3.org/1999/xhtml')
+  head
+    
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    title='View Mentor'
+    meta(name='keywords', content='')
+    meta(name='description', content='')
+    link(href='http://fonts.googleapis.com/css?family=Varela', rel='stylesheet')
+    
+    script(type='text/javascript', src='/javascripts/jquery-1.9.1.min.js')
+    script(type='text/javascript', charset='utf-8', src='/javascripts/jquery.leanModal.min.js')
+    link(href='/stylesheets/firstpage.css', rel='stylesheet', type='text/css', media='all')
+    link(href='/stylesheets/firstpagefonts.css', rel='stylesheet', type='text/css', media='all')
+    
+    //if IE 6
+      link(href='default_ie6.css', rel='stylesheet', type='text/css')
+  body
+    #wrapper
+      #header-wrapper
+        #header.container
+          #logo
+            h1
+              img(src='images/logo2.png', alt='', width='70', height='70')
+              if (user)
+              
+              
+          #menu
+            ul
+              li.active
+                a(href='home', accesskey='1', title='') Go Back
+              
+      
+
+          ul.actions
+            
+             
+      
+      #extra.container
+        .title
+          h2 Your Mentor
+          
+        #three-column
+          .boxA
+           
+            
+              p <strong>mentor Name:</strong> #{data.mentor.firstName} #{data.mentor.lastName}
+              p <strong>mentor ID :</strong>       #{data.mentor._id}
+              p <strong>Program :</strong> #{data.mentor.major}
+              p <strong>Mobile :</strong> #{data.mentor.cellPhone}
+              p <strong>Email :</strong> #{data.mentor.email}
+          .boxC
+            .box
+              img(src='images/userpicture/#{data.mentor._id}.jpg', alt='', width='200', height='300')   
+            
+          
+                     
+                
+        
+    

@@ -1,0 +1,64 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title='oops'
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    //if IE
+      meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    title  404 Error Page
+    // ADDING THE REQUIRED STYLE SHEETS
+    link(type='text/css', href='css/bootstrap.css', rel='stylesheet')
+    // BOOTSTRAP 3 CSS FILE
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800', rel='stylesheet', type='text/css')
+    // Google web font link
+    link(type='text/css', href='/stylesheets/font-awesome.css', rel='stylesheet')
+    // Font Awesome CSS FILE
+    link(type='text/css', href='/stylesheets/custom.css', rel='stylesheet')
+    // CUSTOM CSS FILE
+    link(type='text/css', href='/stylesheets/animate.css', rel='stylesheet')
+    // animate.css FILE
+    // HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries
+    //if lt IE 9
+      script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+      script(src='https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js')
+  body
+    section
+      .container
+        .row.row1
+          .col-md-12
+            h3.center.capital.f1.wow.fadeInLeft(data-wow-duration='2s') Something went Wrong!
+            h1#error.center.wow.fadeInRight(data-wow-duration='2s') 0
+            p.center.wow.bounceIn(data-wow-delay='2s') Page not Found!
+        
+        .row
+          .col-md-12
+            .col-md-12.col-md-offset-3.search-form.wow.fadeInUp(data-wow-delay='4000ms')
+              form(action='/ghelp', method='get')
+                input.col-md-3.col-xs-12(type='submit', value='Go Back to GHELP')
+        
+        
+    // ADDING THE REQUIRED SCRIPT FILES
+    script(type='text/javascript', src='/javascripts/jquery-1.10.1.min.js')
+    script(type='text/javascript', src='/javascripts/countUp.js')
+    script(type='text/javascript', src='/javascripts/wow.js')
+    // Initiating the CountUp Script
+    script(type='text/javascript').
+      "use strict";
+      var count = new countUp("error", 0, 404, 0, 3);
+      window.onload = function() {
+      // fire animation
+      count.start();
+      }
+    // Initiating the Wow Script
+    script.
+      "use strict";
+      var wow = new WOW(
+      {
+      animateClass: 'animated',
+      offset:       100
+      }
+      );
+      wow.init();

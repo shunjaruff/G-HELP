@@ -1,0 +1,191 @@
+html
+  head
+    title='Register Mentor'
+    link(href='/stylesheets/my.css',rel='stylesheet')
+    title='View Event'
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    title
+    meta(name='keywords', content='')
+    meta(name='description', content='')
+    link(href='http://fonts.googleapis.com/css?family=Varela', rel='stylesheet')
+    link(href='/stylesheets/my.css',rel='stylesheet')
+    link(href='/stylesheets/firstpage.css', rel='stylesheet', type='text/css', media='all')
+    link(href='/stylesheets/firstpagefonts.css', rel='stylesheet', type='text/css', media='all')
+    
+    //if IE 6
+      link(href='default_ie6.css', rel='stylesheet', type='text/css')
+  body
+    #wrapper
+      #header-wrapper
+        #header.container 
+          //h2 &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp MENTOR REGISTRATION
+           
+          
+        
+          
+          #logo
+            h1
+              img(src='images/logo2.png', alt='', width='70', height='70')
+
+              
+             
+          #menu
+            ul
+              li
+                a(href='/home', accesskey='1', title='') Homepage
+
+               
+              li  
+               if (user)
+                a(href='/logout') Logout
+             
+
+             
+   #banner
+    .title
+            h2 Mentor Registration
+  
+    div.container
+
+      if errors
+        each error in errors
+          div.alert.alert-danger
+            span #{error.error}
+      if saved
+        div.alert.alert-success
+          span Registration Successfull! 
+      form.login-form.form-horizontal(method='post',id='assigning', role='form')
+       if(user)
+            script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js").
+            script(type='text/javascript').
+                $('#assigning').on('submit', function (event) {
+                    event.preventDefault(); // Stop the form from causing a page refresh.
+                    var data = {
+                      munNo:  $("input[name='munNo']").val(),
+                      firstName:  $("input[name='firstName']").val(),
+                      lastName:   $("input[name='lastName']").val(),
+                      major:  $("input[name='major']").val(),
+                      email:      $("input[name='email']").val(),
+                      number:   $("input[name='number']").val(),
+                      sex:   $("input[name='sex']").val(),
+                      preference: $("textarea[name='preference']").val()
+                      
+                    };
+                    $.ajax({
+                        url: '/registermentor',
+                        data: data,
+                        method: 'POST'
+                    }).then(function (response) {
+                        window.location.href='/home';
+                        alert("Thank You for registration, mentee(s) will be assigned to you by Admin", response);
+                    }).catch(function (err) {
+                        console.error(err);
+                    });
+                });
+      
+        div.form-group
+          label.col-sm-4 MUN Stu. No.
+          div.col-sm-8
+            input.form-control(
+              placeholder='Your MUN Stu No.',
+              value="#{user._id}",
+              required=true,
+              name='munNo',
+              type='number',
+              style='width: 300px',
+              readonly=true
+              )
+        div.form-group
+          label.col-sm-4 First Name
+          div.col-sm-8
+            input.form-control(
+              placeholder='Your first name',
+              value="#{user.firstName}",
+              readonly=true,
+              required=true,
+              name='firstName',
+              type='text',
+              
+              style='width: 300px'
+              )
+        
+        div.form-group
+          label.col-sm-4 Last Name
+          div.col-sm-8
+            input.form-control(placeholder='Your last name',
+              required=true,
+              value="#{user.lastName}",
+              readonly=true,
+              name='lastName',
+              type='text',
+              style='width: 300px',
+              )
+        div.form-group
+          label.col-sm-4 Major
+          div.col-sm-8
+            input.form-control(placeholder='e.g. Computer Science',
+              required=true,
+              value="#{user.program}",
+              readonly=true,
+              name='major',
+              type='text',
+              style='width: 300px')
+           
+        div.form-group
+          label.col-sm-4 Email
+          div.col-sm-8
+            input.form-control(placeholder='example@example.com',
+              required=true,
+              value="#{user.username}",
+              readonly=true,
+              name='email',
+              type='email',
+              style='width: 300px'
+              )      
+        
+        
+        div.form-group
+          label.col-sm-4 Cellphone 
+          div.col-sm-8
+            input.form-control(type='number', 
+            value="#{user.mobile}",
+              readonly=true,
+              name='number',maxlength='10' pattern='[0-9]{10}', required=true, style='width: 300px', placeholder='Ex-7099999999')
+          
+
+              
+        div.form-group
+          label.col-sm-4 Sex
+          div.col-sm-1
+           input.form-control(placeholder='example@example.com',
+              required=true,
+              value="#{user.sex}",
+              readonly=true,
+              name='sex',
+              type='text',
+              style='width: 300px'
+              ) 
+               
+        
+            
+         div.form-group
+          label.col-sm-4 Preference
+          div.col-sm-8
+           textarea.form-control(rows="4", placeholder="Enter preferences that you may have!", style='width:300px', name='preference', required=true)
+
+         dive.form-group
+          label.col-sm-4
+          div.col-sm-1
+            input.form-control(type="hidden", name="assigned")
+
+         dive.form-group
+          label.col-sm-4
+          div.col-sm-1
+            input.form-control(type="hidden", name="mentee", value='')
+            
+            
+        div.form-group
+          div.col-sm-offset-4.col-sm-1
+            button.login.btn.btn-primary(type='submit') Submit
+            
+        

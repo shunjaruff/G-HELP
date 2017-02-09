@@ -1,0 +1,112 @@
+html
+   head
+      title='Host Family Assignment'
+      link(href='/stylesheets/table.css',rel='stylesheet')
+body
+   div.container
+        #logo
+            h1
+              img(src='images/logo2.png', alt='', width='70', height='70')
+          #menu
+            ul
+              li
+                a(href='/home', accesskey='1', title='') Go Back
+      if errors
+         each error in errors
+            div.alert.alert-danger
+               span #{error.error}
+      if saved
+         div.alert.alert-success
+            span Registration Successfull!
+      form
+         div.form-group
+            .table-title
+                 br
+                 br
+                 br
+                 br
+                 br
+                 br
+                 h1 &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp &nbspHOST ASSIGNMENT
+                 h3 Students
+                table.table-fill
+               thead
+                  
+                  tr
+                     th.text-left Student No
+                     th.text-left First Name
+                     th.text-left Last Name
+                     th.text-left Preference
+               tbody
+                  each student, i in stds
+                     tr
+                        td
+                         a #{student._id}
+                        td #{student.firstName}
+                        td #{student.lastName}
+                        td #{student.preference}
+         br
+         br
+         br
+         div
+            .table-title
+              h3 Host Family
+             table.table-fill
+               thead
+                  
+                  tr
+                     tr
+                     th.text-left First Name
+                     th.text-left Last Name
+                     th.text-left Address
+                     th.text-left Preference
+               tbody
+                  each host, i in hosts
+                     tr(class=(i % 2 == 0) ? 'odd' : 'even')
+                        td #{host.firstName}
+                        td #{host.lastName}
+                        td #{host.address}
+                        td #{host.preference}
+
+      p &nbsp
+      p &nbsp
+                      
+      div
+       .table-title
+         h2 Assign Host Family
+      form(method='post',id='hostassign', role='form' )
+         script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js").
+         script(type='text/javascript').
+            $('#hostassign').on('submit', function (event) {
+               event.preventDefault(); // Stop the form from causing a page refresh.
+               var data = {
+                  student: $('#selectStud option:selected').val(),
+                  hostfamily: $('#selectHost option:selected').val()
+               };
+               $.ajax({
+                  url: '/assignhost',
+                  data: data,
+                  method: 'POST'
+               }).then(function (response) {
+                  window.location.reload(true);
+                  alert("A host has been successfully assigned", response);
+               }).catch(function (err) {
+                  console.error(err);
+               });
+            });
+         .form-group
+         .table-title
+          label  Students: &nbsp &nbsp &nbsp
+            select.table#selectStud(placeholder="select", name="student" required=true,style='width:200px')
+               each student, i in stds
+                  option(value="#{student._id}") #{student.firstName} #{student.lastName}
+
+            p      
+          label HostFamily:   &nbsp
+         
+            select.table#selectHost(placeholder="select", name="hostfamily" required=true,style='width:200px')
+               each host, i in hosts
+                  option(value="#{host._id}") #{host.firstName}  #{host.lastName}
+
+            p      
+           input.btn(type="submit", id='assign', value="Assign Host")

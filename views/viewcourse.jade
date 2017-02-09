@@ -1,0 +1,53 @@
+html
+    head
+        title='Course Information'
+        link(href='/stylesheets/eventtable.css',rel='stylesheet')
+body
+    div.container
+        #logo
+            h1
+              img(src='images/logo2.png', alt='', width='70', height='70')
+          #menu
+            ul
+              li
+                a(href='/home', accesskey='1', title='') Go Back
+        if errors
+            each error in errors
+                div.alert.alert-danger
+                    span #{error.error}
+        if saved
+            div.alert.alert-success
+                span Registration Successfull!
+        form
+            div.form-group
+
+               .table-title
+                 br
+                 br
+                 br
+                 br
+                 br
+                 br
+                 h1 &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp &nbspAvailable Courses
+                 h3 Courses
+                table.table-fill
+                    thead
+                      tr 
+                       
+                        
+                        th.text-left Code
+                        th.text-left Name
+                        th.text-left Instructor
+                        th.text-left Credit
+                        th.text-left Term
+                    tbody
+                        each c, i in course
+                            tr
+                                td #{c.courseCode}
+                                td #{c.courseName}
+                                td #{c.instructor}
+                                td #{c.creditUnit}
+                                td #{c.term}
+           
+                          
+             

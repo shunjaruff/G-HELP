@@ -1,0 +1,139 @@
+html
+   head
+      
+      link(href='/stylesheets/my.css',rel='stylesheet')
+
+      meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+      title='Add Course'
+      meta(name='keywords', content='')
+      meta(name='description', content='')
+      link(href='http://fonts.googleapis.com/css?family=Varela', rel='stylesheet')
+      link(href='/stylesheets/my.css',rel='stylesheet')
+      link(href='/stylesheets/firstpage.css', rel='stylesheet', type='text/css', media='all')
+      link(href='/stylesheets/firstpagefonts.css', rel='stylesheet', type='text/css', media='all')
+
+      //if IE 6
+        link(href='default_ie6.css', rel='stylesheet', type='text/css')
+   body
+      #wrapper
+         #header-wrapper
+            #header.container
+               //h2 &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp MENTOR REGISTRATION
+
+
+
+
+               #logo
+                  h1
+                     img(src='images/logo2.png', alt='', width='70', height='70')
+
+
+
+               #menu
+                  ul
+                     li
+                        a(href='/home', accesskey='1', title='') Go Back
+
+
+
+
+
+   #banner
+      .title
+         h2 Add Course
+
+      div.container
+
+         if errors
+            each error in errors
+               div.alert.alert-danger
+                  span #{error.error}
+         if saved
+            div.alert.alert-success
+               span Course Addition Was Successful!
+         form.login-form.form-horizontal(method='post', id='course')
+               script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js").
+               script(type='text/javascript').
+                   $('#course').on('submit', function (event) {
+                      event.preventDefault(); // Stop the form from causing a page refresh.
+                      var data = {
+                         cCode:  $("input[name='cCode']").val(),
+                         cName:   $("input[name='cName']").val(),
+                         instructor:      $("input[name='instructor']").val(),
+                         cUnit: $('#credit option:selected').val(),
+                         term: $('#term option:selected').val()
+                      };
+                      $.ajax({
+                         url: '/addCourse',
+                         data: data,
+                         method: 'POST'
+                      }).then(function (response) {
+                         window.location.href='/home';
+                         alert("Course addition was successful", response);
+                      }).catch(function (err) {
+                         console.error(err);
+                      });
+                   });
+
+
+               div.form-group
+               label.col-sm-4 Course Code:
+               div.col-sm-8
+                  input.form-control(
+                  placeholder='e.g CS2100',
+                  required=true,
+                  name='cCode',
+                  type='text',
+                  value=courseCode,
+                  style='width: 300px', maxlength='6'
+                  )
+
+               div.form-group
+               label.col-sm-4 Course Name:
+               div.col-sm-8
+                  input.form-control(
+                  placeholder='Name of Course',
+                  required=true,
+                  name='cName',
+                  type='text',
+                  style='width: 200px',
+                  value=courseName)
+
+               div.form-group
+               label.col-sm-4 Instructor:
+               div.col-sm-8
+                  input.form-control(placeholder='Enter an instructor',
+                  required=true,
+                  name='instructor',
+                  type='text',
+                  style='width: 200px',
+                  value=instructor)
+
+               div.form-group
+               label.col-sm-4 Credit Unit:
+               div.col-sm-1
+                  select(placeholder="select",
+                  name="cUnit",
+                  required=true,
+                  style='color:black', id='credit')
+                     option(value="1") 1 &nbsp &nbsp &nbsp &nbsp &nbsp
+                     option(value="2") 2
+                     option(value="3") 3
+                     option(value="4") 4
+
+               div.form-group
+               label.col-sm-4 Term:
+               div.col-sm-1
+                  select(placeholder="select",
+                  name="term",
+                  required=true,
+                  style='color:black', id='term')
+                     option(value="Fall") Fall
+                     option(value="Spring") Spring
+                     option(value="Winter") Winter
+
+
+               div.form-group
+               div.col-sm-offset-4.col-sm-1
+                 button.login.btn.btn-primary(type='submit') Submit
+ 

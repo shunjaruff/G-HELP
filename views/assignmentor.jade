@@ -1,0 +1,115 @@
+html
+    head
+        title='Assign Mentor'
+        link(href='/stylesheets/table.css',rel='stylesheet')
+body
+    div.container
+        #logo
+            h1
+              img(src='images/logo2.png', alt='', width='70', height='70')
+          #menu
+            ul
+              li
+                a(href='/home', accesskey='1', title='') Go Back
+        if errors
+            each error in errors
+                div.alert.alert-danger
+                    span #{error.error}
+        if saved
+            div.alert.alert-success
+                span Registration Successful!
+        form
+            div.form-group
+
+               .table-title
+                 br
+                 br
+                 br
+                 br
+                 br
+                 br
+                 h1 &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp &nbspMENTOR ASSIGNMENT
+                 h3 Students
+                table.table-fill
+                    thead
+                      tr 
+                       
+                        
+                         th.text-left Student ID
+                         th.text-left First Name
+                         th.text-left Last Name
+                         th.text-left Preference
+                    tbody
+                        each student, i in stds
+                            tr
+                                td
+                                 a #{student._id}
+                                td #{student.firstName}
+                                td #{student.lastName}
+                                td #{student.preference}
+            br
+            br
+            br
+            div
+               .table-title
+                 h3 Mentors
+                table.table-fill
+                    thead
+                        
+                        tr
+                            th.text-left Student No 
+                            th.text-left First Name 
+                            th.text-left Last Name 
+                            th.text-left Preference
+                    tbody
+                        each mentor, i in ments
+                            tr(class=(i % 2 == 0) ? 'odd' : 'even')
+                                td
+                                 a #{mentor._id}
+                                td #{mentor.firstName}
+                                td #{mentor.lastName}
+                                td #{mentor.preference}
+        
+        br
+        br
+        
+        div
+          .table-title
+            h2 Please Choose Below
+        form(method='post',id='assigning', role='form' )
+            script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js").
+            script(type='text/javascript').
+                $('#assigning').on('submit', function (event) {
+                    event.preventDefault(); // Stop the form from causing a page refresh.
+                    var data = {
+                        mentee: $('#selectStudent option:selected').val(),
+                        dmentor: $('#selectMentor option:selected').val()
+                    };
+                    $.ajax({
+                        url: '/assignmentor',
+                        data: data,
+                        method: 'POST'
+                    }).then(function (response) {
+                        window.location.reload(true);
+                        alert("You have successfully assigned a mentor", response);
+                    }).catch(function (err) {
+                        console.error(err);
+                    });
+                });
+            .form-group
+            .table-title
+             label  Students: &nbsp
+             
+                select.table#selectStudent(placeholder="select", name="mentee" required=true)
+                    each student, i in stds
+
+                        option(value="#{student._id}", placeholder='Select Student') #{student.firstName}  #{student.lastName} - #{student._id}
+                 p       
+             label Mentors: &nbsp&nbsp
+               
+                select.table#selectMentor(placeholder="select", name="dmentor" required=true)
+                    each mentor, i in ments
+                        option(value="#{mentor._id}") #{mentor.firstName} #{mentor.lastName} #{mentor._id}
+
+                 p       
+             input.btn(type="submit", id='assign', value="Assign Mentor")

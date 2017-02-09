@@ -1,0 +1,42 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    title Choose Your Profile Picture
+    
+    script(src='javascripts/elegant.js')
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    title
+    meta(name='keywords', content='')
+    meta(name='description', content='')
+    link(href='http://fonts.googleapis.com/css?family=Varela', rel='stylesheet')
+    script(type='text/javascript', src='/javascripts/jquery-1.9.1.min.js')
+    script(type='text/javascript', charset='utf-8', src='/javascripts/jquery.leanModal.min.js')
+    link(href='/stylesheets/firstpage.css', rel='stylesheet', type='text/css', media='all')
+    link(href='/stylesheets/firstpagefonts.css', rel='stylesheet', type='text/css', media='all')
+  body
+    // Google Font - Work Sans
+    link(href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,700', rel='stylesheet', type='text/css')  
+   #wrapper
+      #header-wrapper
+        #header.container
+          #logo
+            h1
+              img(src='images/logo2.png', alt='', width='70', height='70')
+          #menu
+            ul
+              li.active
+                a(href='ghelp', accesskey='1', title='') Ghelp
+              li  
+                a(href='http://my.mun.ca', accesskey='1', title='') My-Mun
+      #extra.container
+
+       .title             
+        .container
+         
+          h1 <strong>Choose Your Profile Picture</strong>
+          
+          form#uploadForm(enctype='multipart/form-data', action='/api/photo', method='post')
+           if (user)
+            input.button(type='file', name='#{user._id}', required='true')
+            input.button(type='submit', value='Click to upload', name='submit')

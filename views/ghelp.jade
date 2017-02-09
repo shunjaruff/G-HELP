@@ -1,0 +1,122 @@
+doctype strict
+//
+html(xmlns='http://www.w3.org/1999/xhtml')
+  head
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    title='G-HELP'
+    meta(name='keywords', content='')
+    meta(name='description', content='')
+    link(href='http://fonts.googleapis.com/css?family=Varela', rel='stylesheet')
+    
+    script(type='text/javascript', src='/javascripts/jquery-1.9.1.min.js')
+    
+    script(type='text/javascript', charset='utf-8', src='/javascripts/jquery.leanModal.min.js')
+    link(href='/stylesheets/firstpage.css', rel='stylesheet', type='text/css', media='all')
+    link(href='/stylesheets/firstpagefonts.css', rel='stylesheet', type='text/css', media='all')
+    
+    //if IE 6
+      link(href='default_ie6.css', rel='stylesheet', type='text/css')
+  body
+    #wrapper
+      #header-wrapper
+        #header.container
+          #logo
+            h1
+              img(src='images/logo2.png', alt='', width='70', height='70')
+          #menu
+            ul
+              li.active
+                a(href='http://my.mun.ca', accesskey='1', title='') My-Mun
+              li
+                a(href='/home', accesskey='1', title='') Home 
+              
+      #banner
+        .container
+          .title
+            h2 Welcome to G-HELP system
+            span.byline Your MUN buddy!
+          p
+            |G-HELP is an online support system for the department of Computer Science aimed at enabling new graduate students get vital information and services ranging from academics to social events on pre-arrival and while in St. Johns. G-HELP is focused on simplicity and it has user-friendly features which users (e.g., new grad students, mentor, host family) will find helpful.
+
+          ul.actions
+            li
+             if (!user)
+              p Please login below
+              a.button#modaltrigger.flatbtn(href='#loginmodal') Login
+             if (user)
+              
+              p You are currently logged in as <strong>#{user.username}</strong>
+              a.button#modaltrigger.flatbtn(href='/logout') Logout
+      #loginmodal(style='display:none;')
+    
+        html
+          body
+
+            .loginWrapper          
+              // Current user form
+              
+              form#login(method='post', role='form')
+                
+
+               h2
+                font(face='arial', color='AF1641', size='5') LOGIN TO G-HELP
+               .loginPic
+                 a(href='#', title='')
+                   img(src='/images/student.png', alt='')
+                 span 
+                 .loginActions  
+                  
+                   
+                   div
+                     a.logright(href='/ghelp', title='Close', style='right: 0px; opacity: 1;')
+
+               input.loginEmail(type='email', name='username', placeholder='Your Email', required='true')
+               input.loginPassword(type='password', name='password', placeholder='Password', required='true')
+               .logControl
+                 .memory
+                   
+                  
+                input.buttonM.bBlue(type='submit', name='submit', value='Login')
+
+                
+                 
+             link(href='/stylesheets/animated.css', rel='stylesheet') 
+            //link(rel='stylesheet', href='/stylesheets/style.css')
+       
+       script(type='text/javascript').
+       
+        $(function(){
+        $('#loginform').submit(function(e){
+        return false;
+
+        });
+        $('#modaltrigger').leanModal();
+        });       
+              
+              
+      #page.container
+        .title
+          h2 Host-Family
+          span.byline Interested in hosting a Student?
+        p
+          | Hosting a student could be an amazing experience. 
+        ul.actions
+          li
+            a.button(href='/hostfamily') Register
+      #featured
+        .container
+          img(src='images/memorialuniversity.jpg', alt='', width='1000', height='333')
+          .title
+            h2 Student Registration
+            span.byline
+          p
+            | Please Register yourself here
+        ul.actions
+          li
+            a.button(href='register') Register
+      //#extra.container
+        
+    #copyright.container
+      p
+        | CS6905 - Software Engineer project, Class of fall 2015
+        | .

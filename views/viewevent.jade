@@ -1,0 +1,59 @@
+html
+    head
+        title='View Event'
+        link(href='/stylesheets/eventtable.css',rel='stylesheet')
+body
+    div.container
+        #logo
+            h1
+              img(src='images/logo2.png', alt='', width='70', height='70')
+          #menu
+            ul
+              li
+                a(href='/home', accesskey='1', title='') Go Back
+        if errors
+            each error in errors
+                div.alert.alert-danger
+                    span #{error.error}
+        if saved
+            div.alert.alert-success
+                span Registration Successfull!
+        form
+            div.form-group
+
+               .table-title
+                 br
+                 br
+                 br
+                 br
+                 br
+                 br
+                 h1 &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp &nbspUpcoming Events
+                 h3 Events
+                table.table-fill
+                    thead
+                      tr 
+                       
+                        
+                         th.text-left Event Name
+                         th.text-left Start Date
+                         th.text-left End Date
+                         th.text-left Start Time
+                         th.text-left End Time
+                         th.text-left Location
+                         th.text-left Detail
+                         th.text-left Action
+                    tbody
+                        each event, i in evnts
+                            tr
+                                td
+                                 a #{event.eventName}
+                                td #{event.startDate}
+                                td #{event.endDate}
+                                td #{event.startTime}
+                                td #{event.endTime}
+                                td #{event.venue}
+                                td #{event.eventDetail}
+           
+                          
+             

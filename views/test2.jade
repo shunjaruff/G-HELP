@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  .container
+    
+    if (user.username=="Admin@mun.ca")
+      meta(http-equiv='refresh', content='0; url=registermentor')
+
+    else
+      meta(http-equiv='refresh', content='0; url=home')

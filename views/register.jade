@@ -1,0 +1,166 @@
+html
+  head
+    title='Register Student'
+    link(href='/stylesheets/my.css',rel='stylesheet')
+   
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    title
+    meta(name='keywords', content='')
+    meta(name='description', content='')
+    link(href='http://fonts.googleapis.com/css?family=Varela', rel='stylesheet')
+    link(href='/stylesheets/my.css',rel='stylesheet')
+    link(href='/stylesheets/firstpage.css', rel='stylesheet', type='text/css', media='all')
+    link(href='/stylesheets/firstpagefonts.css', rel='stylesheet', type='text/css', media='all')
+    
+    //if IE 6
+      link(href='default_ie6.css', rel='stylesheet', type='text/css')
+  body
+    #wrapper
+      #header-wrapper
+        #header.container 
+          //h2 &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp MENTOR REGISTRATION
+           
+          
+        
+          
+          #logo
+            h1
+              img(src='images/logo2.png', alt='', width='70', height='70')
+
+              
+             
+          #menu
+            ul
+              li
+                a(href='/ghelp', accesskey='1', title='') Homepage
+
+      
+   #banner
+    .title
+            
+            h1
+             img(src='images/student.png', alt='', width='70', height='70') 
+
+            h2 Student Registration
+
+  
+    div.container
+
+      if errors
+        each error in errors
+          div.alert.alert-danger
+            span #{error.error}
+      if saved
+        div.alert.alert-success
+          span Registration Successfull! 
+      form.login-form.form-horizontal(method='post')
+       
+        
+        input(type="hidden", name="_csrf")
+
+        
+        div.form-group
+          label.col-sm-4 Username
+          div.col-sm-8
+            input.form-control(type='email', name="username",required='required', placeholder='example@mun.ca', style='width: 300px')
+        div.form-group
+          label.col-sm-4 Password
+          div.col-sm-8
+            input.form-control(type='password', name="password",required='required', placeholder='Password', style='width: 300px')
+        
+        div.form-group
+          label.col-sm-4 Student Number
+          div.col-sm-8
+            input.form-control(placeholder='Ex-201510000', required='required', pattern='[209][0-9]{8}',maxlength='9',name='munNo', type='text', style='width: 300px')
+        div.form-group
+          label.col-sm-4 First Name
+          div.col-sm-8
+            input.form-control(placeholder='Your first name', required='required', name='firstName', type='text', style='width: 300px')
+           
+        div.form-group
+          label.col-sm-4 Last Name
+          div.col-sm-8
+            input.form-control(placeholder='Your last name', required='required', name='lastName', type='text', style='width: 300px')      
+        
+        
+        div.form-group
+          label.col-sm-4 Program Type 
+          div.col-sm-1
+
+            select(name='progtype', required='required',style='color:black')
+             option(value='Computer Science - Thesis') Computer Science - Thesis
+             option(value='Computer Science - Course Route') Computer Science - Course Route
+          
+
+              
+        div.form-group
+          label.col-sm-4 Semester
+          div.col-sm-1
+            select(name='semester', required='required',placeholder='Select Semester',style='color:black')
+             option(value='1') Semester - 1
+             option(value='2') Semester - 2
+             option(value='3') Semester - 3
+             option(value='4') Semester - 4
+             option(value='5') Semester - 5
+             option(value='6') Semester - 6
+        div.form-group
+          label.col-sm-4 Cellphone
+          div.col-sm-8
+            input.form-control(placeholder='Ex- 7099869999', required='required', name='mobile', type='text', style='width: 300px',pattern="[7-9]{1}[0-9]{9}",maxlength='10')
+
+        div.form-group
+          label.col-sm-4 Sex
+          div.col-sm-1
+           .radio
+            label
+             input#optionsRadios1(type='radio', name='sex', value='Male', checked='')
+             | Male
+           .radio
+            label
+             input#optionsRadios2(type='radio', name='sex', value='Female')
+             | Female
+
+        div.form-group
+          label.col-sm-4 Do you want a Host Family?
+          div.col-sm-1
+           .radio
+            label
+             input#optionsRadios1(type='radio', name='hostRequest', value='Yes', checked='')
+             | Yes &nbsp
+           .radio
+            label
+             input#optionsRadios2(type='radio', name='hostRequest', value='No')
+             | No  &nbsp &nbsp &nbsp &nbsp      
+
+
+               
+        
+            
+         div.form-group
+          label.col-sm-4 Preference
+          div.col-sm-8
+           textarea.form-control(rows="4", placeholder="Enter preferences that you may have!", style='width:300px', name='preference', required=true)
+
+         .form-group
+
+           input.form-control(name='assigned', type='hidden', value='false')
+           
+
+         .form-group
+          input.form-control(name='mentor', type='hidden', value='', placeholder='leave empty')
+
+
+         .form-group
+          input.form-control(name='hostFamily', type='hidden', value='', placeholder='leave empty')
+            
+            
+        div.form-group
+          div.col-sm-offset-4.col-sm-1
+            button.login.btn.btn-primary(type='submit') &nbsp Next &nbsp 
+          div.col-sm-offset-1.col-sm-3
+            a(href='/ghelp')
+             button.login.btn.btn-primary(type='button') Cancel  
+
+    br
+    h4= info        
+        

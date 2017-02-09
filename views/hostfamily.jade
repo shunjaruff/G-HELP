@@ -1,0 +1,125 @@
+html
+  head
+    title='Register Host Family'
+    link(href='/stylesheets/my.css',rel='stylesheet')
+    link(href='/stylesheets/firstpage.css',rel='stylesheet')
+  body
+   #wrapper
+      #header-wrapper
+        #header.container
+          #logo
+            h1
+              img(src='images/logo2.png', alt='', width='70', height='70')
+          #menu
+            ul
+              li
+                a(href='/ghelp', accesskey='1', title='') Go Back
+    
+    #banner
+     .title
+            h2 HostFamily Registration
+     div.container    
+
+      if errors
+        each error in errors
+          div.alert.alert-danger
+            span #{error.error}
+      if saved
+        div.alert.alert-success
+          span Registration Successfull! 
+      form.login-form.form-horizontal(method='post', role='form' id='hostfamily')
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js").
+        script(type='text/javascript').
+
+                  $('#hostfamily').on('submit', function (event) {
+                    event.preventDefault(); // Stop the form from causing a page refresh.
+                    var data = {
+                      firstName:  $("input[name='firstName']").val(),
+                      lastName:   $("input[name='lastName']").val(),
+                      email:      $("input[name='email']").val(),
+                      mobileNo:   $("input[name='mobileNo']").val(),
+                      preference: $("textarea[name='preference']").val(),
+                      address:    $("textarea[name='address']").val()
+                    };
+                    $.ajax({
+                      url: '/hostfamily',
+                      data: data,
+                      method: 'POST'
+                    }).then(function (response) {
+
+                      window.location.href='/ghelp';
+                      alert("You have successfully registered, response);
+                      
+
+                    }).catch(function (err) {
+                      console.error(err);
+                    });
+                  });
+
+
+        input(name='_csrf', type='hidden', value=csrfToken)
+
+        div.form-group
+          label.col-sm-4 First Name
+          div.col-sm-8
+            input.form-control(
+              placeholder='Your first name',
+              required=true,
+              name='firstName',
+              type='text',
+              value=givenName,
+              style='width: 300px',
+              )
+
+        div.form-group
+          label.col-sm-4 Last Name
+          div.col-sm-8
+            input.form-control(placeholder='Your last name',
+              required=true,
+              name='lastName',
+              type='text',
+              style='width: 300px',
+              value=surname)
+
+
+        div.form-group
+          label.col-sm-4 Email
+          div.col-sm-8
+            input.form-control(placeholder='example@example.com',
+              required=true,
+              name='email',
+              type='email',
+              style='width: 300px',
+              value=email)
+        div.form-group
+          label.col-sm-4 Cellphone
+          div.col-sm-8
+            input.form-control(placeholder='Ex- 7099869999',
+              required=true,
+              name='mobileNo',
+              type='type',
+              style='width: 300px',
+              pattern="[7-9]{1}[0-9]{9}",
+              maxlength='10'
+              )
+
+         div.form-group
+          label.col-sm-4 Preference
+          div.col-sm-8
+           textarea.form-control(rows="4", placeholder="Please let us know your preference", name='preference'
+           style='width:300px')
+                 
+         
+        
+            
+         div.form-group
+          label.col-sm-4 Address
+          div.col-sm-8
+           textarea.form-control(rows="4", placeholder="Please provide your address", name='address'
+           style='width:300px')
+            
+        div.form-group
+          div.col-sm-offset-4.col-sm-1
+            button.login.btn.btn-primary(type='submit') Submit
+        
+    

@@ -1,0 +1,172 @@
+html
+  head
+    
+    link(href='/stylesheets/my.css',rel='stylesheet')
+   
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    title='Add Event'
+    meta(name='keywords', content='')
+    meta(name='description', content='')
+    link(href='http://fonts.googleapis.com/css?family=Varela', rel='stylesheet')
+    link(href='/stylesheets/my.css',rel='stylesheet')
+    link(href='/stylesheets/firstpage.css', rel='stylesheet', type='text/css', media='all')
+    link(href='/stylesheets/firstpagefonts.css', rel='stylesheet', type='text/css', media='all')
+    
+    //if IE 6
+      link(href='default_ie6.css', rel='stylesheet', type='text/css')
+  body
+    #wrapper
+      #header-wrapper
+        #header.container 
+          //h2 &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp MENTOR REGISTRATION
+           
+          
+        
+          
+          #logo
+            h1
+              img(src='images/logo2.png', alt='', width='70', height='70')
+
+              
+             
+          #menu
+            ul
+              li
+                a(href='/home', accesskey='1', title='') Go Back
+
+             
+
+             
+   #banner
+    .title
+            h2 Add Event
+
+    div.container
+
+      if errors
+        each error in errors
+          div.alert.alert-danger
+            span #{error.error}
+      if saved
+        div.alert.alert-success
+          span Registration Successfull! 
+      form.login-form.form-horizontal(method='post',id='assigning', role='form')
+       if(user)
+            script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js").
+            script(type='text/javascript').
+                $('#assigning').on('submit', function (event) {
+                    var eventName = $('#eventName').val(),
+                    startDate = $('#startDate').val(),
+                    endDate = $('#endDate').val(),
+                    startTime = $('#startTime').val(),
+                    endTimeTime = $('#endTime').val(),
+                    venue = $('#venue').val(),
+                    eventDetail = $('#eventDetail').val();
+                    var data = { "eventName": eventName, "startDate":startDate, "endDate": endDate,"startTime": startTime, "venue":venue, "eventDetail":eventDetail};
+                    $.ajax({
+                        url: '/addevent',
+                        data: data,
+                        method: 'POST'
+                    }).then(function (response) {
+                        window.location.reload(true);
+                        alert("Event added successfully!", response);
+                    }).catch(function (err) {
+                        console.error(err);
+                    });
+                });
+
+        div.form-group
+          label.col-sm-4 Event Name
+          div.col-sm-8
+            input.form-control(
+              placeholder='Name of the event',
+              required=true,
+              name='eventName',
+              type='text',
+              value='',
+              style='width: 300px',
+              )
+        
+        div.form-group
+          label.col-sm-4 Start Date
+          div.col-sm-8
+            input.form-control(
+              placeholder='Start Date',
+              required=true,
+              name='startDate',
+              autofocus="", type="date",     oninput="return dateValidate1(startDate)",
+              value='',
+              style='width: 200px')
+            script(type='text/javascript').  
+              function dateValidate1(startDate)
+                {
+                    var pickeddate =  new Date(startDate.value);
+                    var todayDate =  new Date(new Date - 86400000);
+                    if( pickeddate > todayDate )
+                    {
+                       return true;
+                    }
+                    else
+                    {
+                        alert("Enter a valid Date");
+                    } 
+                }
+        div.form-group
+          label.col-sm-4 End Date
+          div.col-sm-8
+            input.form-control(placeholder='End Date',
+              required=true,
+              name='endDate',
+              autofocus="", type="date",     oninput="return dateValidate2(endDate)",
+              value='',
+              style='width: 200px')
+            script(type='text/javascript').  
+              function dateValidate2(endDate)
+                {
+                    var pickeddate =  new Date(endDate.value);
+                    var todayDate =  new Date(new Date - 86400000);
+                    if( pickeddate > todayDate )
+                    {
+                       return true;
+                    }
+                    else
+                    {
+                        alert("Enter a valid Date");
+                    } 
+                }  
+        div.form-group
+          label.col-sm-4 Start Time
+          div.col-sm-8
+            input.form-control(placeholder='What time Event starts?',
+              required=true,
+              name='startTime',
+              type='time',
+              value='',
+              style='width: 200px')
+        div.form-group
+          label.col-sm-4 End Time
+          div.col-sm-8
+            input.form-control(placeholder='What time Event ends?',
+              required=true,
+              name='endTime',
+              type='time',
+              value='',
+              style='width: 200px')
+        div.form-group
+          label.col-sm-4 Venue
+          div.col-sm-8
+            input.form-control(placeholder='e.g. UC Landing',
+              required=true,
+              name='venue',
+              type='text',
+              value='',
+              style='width: 200px')
+        
+         div.form-group
+          label.col-sm-4 Event Detail
+          div.col-sm-8
+            textarea.form-control(required='true',rows="4", placeholder="Enter event detail here.", style='width:300px',name='eventDetail', type='text',value='')
+        div.form-group
+          div.col-sm-offset-4.col-sm-1
+            button.login.btn.btn-primary(type='submit') Submit
+        
