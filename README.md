@@ -1,13 +1,12 @@
 # G-HELP
 To test the system, download or clone the project-
+Extract the project in your C:\ directory. it should be **_C:\G-HELP-master_**
 
 Have Node.js, MongoDB installed in your system
 
-Open the cmd and nevigate to g-help Project folder, from here do **_npm start_**, this starts your Node.js server and listen at 3339
+Double click on **_Start.vbs_**. This will start mongodb and node.js in your project directory (invisible).
 
-Open cmd and cd to bin directory of mongoDB. type **_mongod --dbpath path to your g-help\db_** and hit enter.
-
-Open another cmd and cd to bin directory of mongoDB. type **_mongo_** hit enter and then type **_use ghelp_**. your db is now data directory of g-help
+Open cmd and cd to bin directory of mongoDB. type **_mongo_** hit enter and then type **_use ghelp_**. your db is now data directory of g-help
 
 Go to **_localhost:3339_** in your browser to test
 
